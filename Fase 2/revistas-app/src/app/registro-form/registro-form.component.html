@@ -1,0 +1,35 @@
+<form [formGroup]="registroForm">                  
+    <div class="mb-3">
+        <span style="color:#ff0000">*</span><label for="username">Nombre de Usuario</label>
+        <input type="text" class="form-control" name="username" id="username" placeholder="Username">
+    </div>
+
+    <div class="mb-3">
+        <span style="color:#ff0000">*</span><label for="Password">Contraseña</label>
+        <input type="password" class="form-control" name="password" id="Password" placeholder="Password">
+    </div>
+    
+    <div class="mb-3">
+        <label for="Descripcion">Descripcion</label>
+        <textarea class="form-control" id="Descripcion" rows="4" placeholder="Descripcion"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label for="Edad">Edad</label>
+        <input type="date" class="form-control" name="fecha_de_nacimiento" id="FechaDeNacimiento" placeholder="FechaDeNacimiento">
+    </div>
+    
+    <div class="mb-3">
+        <label for="genero">Genero</label>
+        <select name="genero" class="form-select" id="genero" formControlName="genero">
+            <option [ngValue]="null" selected disabled>Seleccione una opcion...</option>
+            <option *ngFor="let option of generoEnum | keyvalue" [ngValue]="option.key">{{option.value}}</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Siguiente</button>
+    </div>
+    <hr>
+    <p>Los campos obligatorios son indicados por <span style="color:#ff0000">*</span></p>
+</form>
