@@ -5,13 +5,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginFormComponent } from './login-form/login-form.component';
-import { RegistroFormComponent } from './registro-form/registro-form.component';
+import { RegistroFormComponent } from './registro-usuario-form/registro-usuario-form.component';
+import { PaginaRegistroComponent } from './pagina-registro/pagina-registro.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginFormComponent,
-    RegistroFormComponent
+    RegistroFormComponent,
+    PaginaRegistroComponent
   ],
   imports: [
     BrowserModule,

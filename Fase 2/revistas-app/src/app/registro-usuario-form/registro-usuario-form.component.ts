@@ -4,9 +4,9 @@ import { GeneroEnum } from '../objetos/base/GeneroEnum';
 import { Usuario } from '../objetos/base/Usuario';
 
 @Component({
-  selector: 'app-registro-form',
-  templateUrl: './registro-form.component.html',
-  styleUrls: ['./registro-form.component.css']
+  selector: 'app-registro-usuario-form',
+  templateUrl: './registro-usuario-form.component.html',
+  styleUrls: ['./registro-usuario-form.component.css']
 })
 export class RegistroFormComponent implements OnInit {
 
