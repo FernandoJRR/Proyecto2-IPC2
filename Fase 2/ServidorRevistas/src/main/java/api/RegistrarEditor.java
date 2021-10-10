@@ -8,7 +8,6 @@ package api;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.http.HttpResponse;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -20,15 +19,14 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import db.ControlUsuarios;
-import objetos.Usuario;
+import objetos.Editor;
 
 /**
  *
  * @author fernanrod
  */
-@WebServlet(name = "RegistrarUsuario", urlPatterns = {"/registrar-usuario"})
-public class RegistrarUsuario extends HttpServlet {
-
+@WebServlet(name = "RegistrarEditor", urlPatterns = {"/registrar-editor"})
+public class RegistrarEditor extends HttpServlet {
 	/**
 	 * Handles the HTTP <code>POST</code> method.
 	 *
@@ -50,9 +48,9 @@ public class RegistrarUsuario extends HttpServlet {
 			}
 			
 			Gson gson = new Gson();
-			Usuario usuario = gson.fromJson(body, Usuario.class);
+			Editor editor = gson.fromJson(body, Editor.class);
 			try {
-				ControlUsuarios.registrarUsuario(usuario);
+				ControlUsuarios.registrarEditor(editor);
 				response.getWriter().append(gson.toJson(true));
 			} catch (SQLException e) {
 				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -61,7 +59,5 @@ public class RegistrarUsuario extends HttpServlet {
 				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 				e.printStackTrace();
 			}
-		}
-
-
+	}
 }

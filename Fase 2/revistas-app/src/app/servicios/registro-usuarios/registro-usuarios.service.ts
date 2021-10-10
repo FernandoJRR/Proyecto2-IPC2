@@ -4,6 +4,8 @@ import { Observable } from "rxjs";
 import { Etiqueta } from "src/app/objetos/base/Etiqueta";
 import { Usuario } from "src/app/objetos/base/Usuario";
 import { UsuarioModel } from "src/app/modelos/UsuarioModel";
+import { EditorModel } from "src/app/modelos/EditorModel";
+import { Editor } from "src/app/objetos/base/Editor";
 
 @Injectable({
     providedIn: 'root'
@@ -24,5 +26,10 @@ export class RegistroUsuariosServicio {
     public registrarUsuario(usuario: Usuario): Observable<boolean> {
         let modelo = new UsuarioModel(usuario);
         return this.httpClient.post<boolean>(this.API_URL + "registrar-usuario", modelo);
+    }
+
+    public registrarEditor(editor: Editor): Observable<boolean> {
+        let modelo = new EditorModel(editor);
+        return this.httpClient.post<boolean>(this.API_URL + "registrar-editor", modelo);
     }
 }

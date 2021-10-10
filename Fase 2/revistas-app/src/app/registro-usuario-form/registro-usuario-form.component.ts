@@ -21,7 +21,7 @@ export class RegistroFormComponent implements OnInit {
   etiquetasElegidas: Array<string> = [];
   
   mensajeError: boolean = false;
-  mensajeExito: boolean = true;
+  mensajeExito: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private registroUsuariosServicio: RegistroUsuariosServicio) { 
     this.usuario = new Usuario("", "", "", "", GeneroEnum.MASCULINO, []);
@@ -83,6 +83,7 @@ export class RegistroFormComponent implements OnInit {
           this.registroForm.reset();
           this.usuario = new Usuario("", "", "", "", GeneroEnum.MASCULINO, []);
           this.mensajeExito = true;
+          this.mensajeError = false;
         }
       },(error:any) =>{
           console.log("error")

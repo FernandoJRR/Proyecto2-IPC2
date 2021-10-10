@@ -6,7 +6,15 @@
                     <h4>Bienvenido a Bibliothek</h4>
                     <div class="col-12">
                         <label>Nombre de Usuario</label>
-                        <input type="text" name="username" class="form-control" id="username" placeholder="Username">
+                        <input type="text" 
+                                [ngClass]="{
+                                'form-control': true,
+                                'is-invalid': (!loginForm.controls.username.errors?.existe && !loginForm.controls.username.pristine)
+                                }"
+                                name="username" id="username" placeholder="Username" formControlName="username">
+                        <div class="text-danger" *ngIf="!loginForm.controls.username.errors?.existe && !loginForm.controls.username.pristine">
+                            El username no existe
+                        </div>
                     </div>
                     <div class="col-12">
                         <label>Password</label>

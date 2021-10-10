@@ -8,6 +8,7 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { RegistroFormComponent } from './registro-usuario-form/registro-usuario-form.component';
 import { PaginaRegistroComponent } from './pagina-registro/pagina-registro.component';
 import { HttpClientModule } from '@angular/common/http';
+import { RegistroEditorFormComponent } from './registro-editor-form/registro-editor-form.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
     LoginFormComponent,
     RegistroFormComponent,
     PaginaRegistroComponent,
+    RegistroEditorFormComponent,
   ],
   imports: [
     BrowserModule,

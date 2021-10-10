@@ -5,27 +5,23 @@
  */
 package objetos;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author fernanrod
  */
-public class Usuario {
+public class Editor {
     private String username;
     private String password;
     private String descripcion;
     private String hobbies;
     private String genero;
-    private ArrayList<Etiqueta> etiquetas;
     
-    public Usuario(String username,String password,String descripcion,String hobbies,String genero,ArrayList<Etiqueta> etiquetas){
+    public Editor(String username,String password,String descripcion,String hobbies,String genero){
         this.username = username;
         this.password = password;
         this.descripcion = descripcion;
         this.hobbies = hobbies;
         this.genero = genero;
-        this.etiquetas = etiquetas;
     }
     
     public String getUsername() {
@@ -48,7 +44,4 @@ public class Usuario {
         return genero;
     }
 
-    public ArrayList<Etiqueta> getEtiquetas() {
-        return etiquetas;
-    }
 }

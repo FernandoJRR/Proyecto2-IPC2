@@ -1,4 +1,3 @@
-import { Etiqueta } from "../objetos/base/Etiqueta";
 import { GeneroEnum } from "../objetos/base/GeneroEnum";
 import { Usuario } from "../objetos/base/Usuario";
 import { EtiquetaModel } from "./EtiquetaModel";
