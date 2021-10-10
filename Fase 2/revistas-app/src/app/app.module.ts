@@ -7,19 +7,21 @@ import { AppComponent } from './app.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { RegistroFormComponent } from './registro-usuario-form/registro-usuario-form.component';
 import { PaginaRegistroComponent } from './pagina-registro/pagina-registro.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginFormComponent,
     RegistroFormComponent,
-    PaginaRegistroComponent
+    PaginaRegistroComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -14,7 +14,7 @@ export class LoginFormComponent implements OnInit {
   loginForm!: FormGroup;
 
   constructor(private formBuilder: FormBuilder) { 
-    this.usuario = new Usuario("", "", "", new Date, GeneroEnum.MASCULINO, []);
+    this.usuario = new Usuario("", "", "", "", GeneroEnum.MASCULINO, []);
   }
 
   ngOnInit(): void {

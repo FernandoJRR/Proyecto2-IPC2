@@ -1,15 +1,14 @@
-export class Etiqueta{
-    _nombre: string;
-    
+export class Etiqueta {
+    private _nombre: string;
+
     constructor(nombre: string) {
         this._nombre = nombre;
     }
-    
-    get nombre(){
+
+    public get nombre(): string {
         return this._nombre;
     }
-    
-    set nombre(nombre: string){
-        this._nombre = nombre;
+    public set nombre(value: string) {
+        this._nombre = value;
     }
 }
