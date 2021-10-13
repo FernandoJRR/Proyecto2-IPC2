@@ -1,4 +1,4 @@
-import { AbstractControl, AsyncValidatorFn, ValidationErrors, ValidatorFn } from "@angular/forms";
+import { AbstractControl, AsyncValidatorFn, ValidationErrors} from "@angular/forms";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { RegistroUsuariosServicio } from "./../servicios/registro-usuarios/registro-usuarios.service";

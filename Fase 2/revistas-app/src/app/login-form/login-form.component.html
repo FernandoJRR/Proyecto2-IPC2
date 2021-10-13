@@ -2,26 +2,40 @@
     <div class="row">
         <div class="col-md-8 offset-md-2">
             <div class="login-form bg-light mt-4 p-4">
-                <form [formGroup]="loginForm" class="row g-3">
+                <form [formGroup]="loginForm" class="row g-3" (ngSubmit)="login()">
                     <h4>Bienvenido a Bibliothek</h4>
                     <div class="col-12">
                         <label>Nombre de Usuario</label>
                         <input type="text" 
                                 [ngClass]="{
                                 'form-control': true,
-                                'is-invalid': (!loginForm.controls.username.errors?.existe && !loginForm.controls.username.pristine)
+                                'is-invalid': (loginForm.controls.username.invalid && !loginForm.controls.username.pristine)
                                 }"
                                 name="username" id="username" placeholder="Username" formControlName="username">
-                        <div class="text-danger" *ngIf="!loginForm.controls.username.errors?.existe && !loginForm.controls.username.pristine">
-                            El username no existe
+                        <div class="text-danger" *ngIf="(loginForm.controls.username.invalid) && !loginForm.controls.username.pristine">
+                            El username no existe o no es valido
                         </div>
                     </div>
                     <div class="col-12">
                         <label>Password</label>
-                        <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+                        <input type="password" 
+                                [ngClass]="{
+                                'form-control': true,
+                                'is-invalid': (!loginForm.controls.password.valid && !loginForm.controls.password.pristine)
+                                }"
+                                name="password" class="form-control" id="password" placeholder="Password" formControlName="password">
+                        <div class="text-danger" *ngIf="!loginForm.controls.password.valid && !loginForm.controls.password.pristine">
+                            La contraseña no es valida
+                        </div>
                     </div>
                     <div class="col-12">
                         <button type="submit" class="btn btn-dark float-end">Iniciar Sesion</button>
+                    </div>
+                    <div class="alert alert-danger" role="alert" *ngIf="mensajeNoMatch">
+                        El nombre de usuario o password no son validos
+                    </div>
+                    <div class="alert alert-danger" role="alert" *ngIf="mensajeError">
+                        Ha ocurrido un error, intentalo mas tarde
                     </div>
                 </form>
                 <hr class="mt-4">

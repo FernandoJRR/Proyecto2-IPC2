@@ -9,6 +9,9 @@ import { RegistroFormComponent } from './registro-usuario-form/registro-usuario-
 import { PaginaRegistroComponent } from './pagina-registro/pagina-registro.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RegistroEditorFormComponent } from './registro-editor-form/registro-editor-form.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PaginaLectorComponent } from './pagina-lector/pagina-lector.component';
+import { PaginaEditorComponent } from './pagina-editor/pagina-editor.component';
 
 @NgModule({
   declarations: [
@@ -17,13 +20,16 @@ import { RegistroEditorFormComponent } from './registro-editor-form/registro-edi
     RegistroFormComponent,
     PaginaRegistroComponent,
     RegistroEditorFormComponent,
+    PaginaLectorComponent,
+    PaginaEditorComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

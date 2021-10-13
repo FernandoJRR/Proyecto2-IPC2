@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginFormComponent } from './login-form/login-form.component';
+import { PaginaEditorComponent } from './pagina-editor/pagina-editor.component';
+import { PaginaLectorComponent } from './pagina-lector/pagina-lector.component';
 
 import { PaginaRegistroComponent } from "./pagina-registro/pagina-registro.component";
 import { RegistroEditorFormComponent } from './registro-editor-form/registro-editor-form.component';
@@ -12,6 +14,8 @@ const routes: Routes = [
   {path: 'pagina-registro', component: PaginaRegistroComponent},
   {path: 'registro-usuario', component: RegistroFormComponent},
   {path: 'registro-editor', component: RegistroEditorFormComponent},
+  {path: 'lector', component: PaginaLectorComponent},
+  {path: 'editor', component: PaginaEditorComponent},
 ];
 
 @NgModule({
