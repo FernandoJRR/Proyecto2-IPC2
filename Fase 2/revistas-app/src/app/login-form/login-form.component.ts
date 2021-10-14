@@ -37,19 +37,18 @@ export class LoginFormComponent implements OnInit {
                 }],
       password: [null, { validators: [Validators.required], updateOn: 'blur'}],
     });
-    
     this.loginForm.addAsyncValidators(matcherPassword(this.loginServicio));
     this.loginForm.updateValueAndValidity();
   }
   
   login() {
     if (this.loginForm.valid) {
-      this.mensajeNoMatch = false;
       this.usuario.username = this.loginForm.controls.username.value
       this.usuario.password = this.loginForm.controls.password.value
       this.loginServicio.obtenerTipoUsuario(this.usuario.username)
       .subscribe((tipo: string) =>{
         this.mensajeError = false;
+        this.mensajeNoMatch = false;
         localStorage.clear();
         localStorage.setItem('username', this.usuario.username);
         if (tipo=="USUARIO") {

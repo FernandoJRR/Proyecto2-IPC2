@@ -20,5 +20,4 @@ export class PaginaLectorComponent implements OnInit {
     localStorage.clear();
     this.router.navigate(['/login']);
   }
-
 }

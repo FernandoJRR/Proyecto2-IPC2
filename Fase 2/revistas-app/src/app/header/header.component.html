@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Bibliothek</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Suscripciones</a>
+        </li>
+      </ul>
+      <form class="d-flex mt-3">
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">Filtro</span>
+            <select class="form-select" style="max-width: 25%;">
+                <option selected [value]="0">Categoria</option>
+                <option [value]="1">Etiquetas</option>
+            </select>
+          <input type="text" class="form-control" placeholder="Buscar Revistas" aria-label="Example text with two button addons">
+          <button class="btn btn-outline-secondary" type="button">Buscar</button>
+        </div>
+      </form>
+    <div class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        {{usuario}}
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <li><a class="dropdown-item" href="#">Ver Perfil</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" (click)="cerrarSesion()">Cerrar Sesion</a></li>
+      </ul>
+    </div>
+    </div>
+  </div>
+</nav>
+  

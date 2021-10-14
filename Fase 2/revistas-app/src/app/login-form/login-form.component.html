@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-8 offset-md-2">
             <div class="login-form bg-light mt-4 p-4">
-                <form [formGroup]="loginForm" class="row g-3" (ngSubmit)="login()">
+                <form [formGroup]="loginForm" class="row g-3" (ngSubmit)="login()" (keydown.enter)="$event.preventDefault()">
                     <h4>Bienvenido a Bibliothek</h4>
                     <div class="col-12">
                         <label>Nombre de Usuario</label>

@@ -12,6 +12,7 @@ import { RegistroEditorFormComponent } from './registro-editor-form/registro-edi
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PaginaLectorComponent } from './pagina-lector/pagina-lector.component';
 import { PaginaEditorComponent } from './pagina-editor/pagina-editor.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { PaginaEditorComponent } from './pagina-editor/pagina-editor.component';
     RegistroEditorFormComponent,
     PaginaLectorComponent,
     PaginaEditorComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
