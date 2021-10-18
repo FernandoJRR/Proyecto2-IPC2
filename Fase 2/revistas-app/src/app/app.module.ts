@@ -13,6 +13,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PaginaLectorComponent } from './pagina-lector/pagina-lector.component';
 import { PaginaEditorComponent } from './pagina-editor/pagina-editor.component';
 import { HeaderComponent } from './header/header.component';
+import { PaginaPerfilComponent } from './pagina-perfil/pagina-perfil.component';
+import { PaginaHomeComponent } from './pagina-home/pagina-home.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { HeaderComponent } from './header/header.component';
     PaginaLectorComponent,
     PaginaEditorComponent,
     HeaderComponent,
+    PaginaPerfilComponent,
+    PaginaHomeComponent,
   ],
   imports: [
     BrowserModule,

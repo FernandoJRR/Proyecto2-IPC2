@@ -3,12 +3,12 @@ import { Usuario } from "../objetos/base/Usuario";
 import { EtiquetaModel } from "./EtiquetaModel";
 
 export class UsuarioModel {
-    private username: string;
-    private password: string;
-    private descripcion: string | null;
-    private hobbies: string | null;
-    private genero: GeneroEnum | null;
-    private etiquetas: Array<EtiquetaModel>;
+    public username: string;
+    public password: string;
+    public descripcion: string | null;
+    public hobbies: string | null;
+    public genero: GeneroEnum | null;
+    public etiquetas: Array<EtiquetaModel>;
     
     constructor(usuario: Usuario){
         this.username = usuario.username;

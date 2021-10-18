@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,13 +8,12 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  @Input() usuario: string | null | undefined;
+  usuario: string | null = localStorage.getItem('username');
 
   constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
-
 
   cerrarSesion(){
     localStorage.clear();

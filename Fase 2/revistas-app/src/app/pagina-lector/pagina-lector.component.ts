@@ -15,9 +15,4 @@ export class PaginaLectorComponent implements OnInit {
   ngOnInit(): void {
     this.usuario==null? this.router.navigate(['/login']) : null;
   }
-  
-  cerrarSesion(){
-    localStorage.clear();
-    this.router.navigate(['/login']);
-  }
 }
