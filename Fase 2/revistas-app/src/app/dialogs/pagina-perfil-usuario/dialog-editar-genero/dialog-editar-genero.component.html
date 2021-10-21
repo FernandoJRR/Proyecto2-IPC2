@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Editar Genero</h1>
+<div mat-dialog-content>
+  <p>Ingresa los cambios al genero</p>
+  <mat-form-field appearance="fill" style="min-width:100%;">
+    <mat-label>Genero</mat-label>
+    <mat-select matNativeControl [(ngModel)]="data.genero" name="genero">
+      <mat-option *ngFor="let option of generoEnum | keyvalue" [value]="option.key">{{option.value}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="cerrar()">Close</button>
+  <button mat-button (click)="guardar()">Guardar</button>
+  <button mat-raised-button color="warn" (click)="eliminar()" style="margin-left: 80%; margin-top: -12%;">Eliminar</button>
+</div>

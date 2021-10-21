@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>Editar Descripcion</h1>
+<div mat-dialog-content>
+  <p>Ingresa los cambios a la descripcion</p>
+  <mat-form-field appearance="fill" style="min-width:100%;">
+    <textarea id="descripcion" matInput [(ngModel)]="data.descripcion" cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"
+              [ngClass]="{
+              'is-invalid': (validez)
+              }"
+              required>{{data.descripcion}}</textarea>
+  </mat-form-field>
+  <mat-error *ngIf="!validez">
+    Debes de ingresar algo al campo
+  </mat-error>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="cerrar()">Close</button>
+  <button mat-raised-button color="primary" (click)="guardar()">Guardar</button>
+  <button mat-raised-button color="warn" (click)="eliminar()" style="margin-left: 80%; margin-top: -12%;">Eliminar</button>
+</div>

@@ -15,6 +15,17 @@ import { PaginaEditorComponent } from './pagina-editor/pagina-editor.component';
 import { HeaderComponent } from './header/header.component';
 import { PaginaPerfilComponent } from './pagina-perfil/pagina-perfil.component';
 import { PaginaHomeComponent } from './pagina-home/pagina-home.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DialogEditarDescripcionComponent } from './dialogs/pagina-perfil-usuario/dialog-editar-descripcion/dialog-editar-descripcion.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { DialogEditarHobbiesComponent } from './dialogs/pagina-perfil-usuario/dialog-editar-hobbies/dialog-editar-hobbies.component';
+import { DialogEditarGeneroComponent } from './dialogs/pagina-perfil-usuario/dialog-editar-genero/dialog-editar-genero.component';
+import { DialogEditarEtiquetasComponent } from './dialogs/pagina-perfil-usuario/dialog-editar-etiquetas/dialog-editar-etiquetas.component';
+import { DialogEditarFotoPerfilComponent } from './dialogs/pagina-perfil-usuario/dialog-editar-foto-perfil/dialog-editar-foto-perfil.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +39,11 @@ import { PaginaHomeComponent } from './pagina-home/pagina-home.component';
     HeaderComponent,
     PaginaPerfilComponent,
     PaginaHomeComponent,
+    DialogEditarDescripcionComponent,
+    DialogEditarHobbiesComponent,
+    DialogEditarGeneroComponent,
+    DialogEditarEtiquetasComponent,
+    DialogEditarFotoPerfilComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,7 +51,13 @@ import { PaginaHomeComponent } from './pagina-home/pagina-home.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
