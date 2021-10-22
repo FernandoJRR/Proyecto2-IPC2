@@ -18,18 +18,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import db.ControlEtiquetas;
-import objetos.Etiqueta;
+import db.ControlRevistas;
+import objetos.Revista;
 
 /**
  *
  * @author fernanrod
  */
-@WebServlet(name = "ObtenerEtiquetas", urlPatterns = {"/obtener-etiquetas"})
-public class ObtenerEtiquetas extends HttpServlet {
+@WebServlet(name = "ObtenerRevistasPublicadas", urlPatterns = {"/obtener-revistas-publicadas"})
+public class ObtenerRevistasPublicadas extends HttpServlet {
 
+	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 	/**
-	 * Handles the HTTP <code>POST</code> method.
+	 * Handles the HTTP <code>GET</code> method.
 	 *
 	 * @param request servlet request
 	 * @param response servlet response
@@ -39,24 +40,28 @@ public class ObtenerEtiquetas extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
-		
-		ArrayList<Etiqueta> listaEtiquetas;
+
+		String editorUsername = request.getParameter("username");
+
 		try {
-			listaEtiquetas = ControlEtiquetas.obtenerEtiquetas();
+			ArrayList<Revista> revistasPublicadas = ControlRevistas.obtenerRevistasPublicadas(editorUsername);
+			
+
+			Gson gson = new Gson();
+			
+			String JsonRevistas = gson.toJson(revistasPublicadas);
+			
+			System.out.println(JsonRevistas);
+			
+			PrintWriter out = response.getWriter();
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			out.print(JsonRevistas);
+			out.flush();
+
 		} catch (SQLException e) {
-			listaEtiquetas = new ArrayList<>();
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			e.printStackTrace();
 		}
-		Gson gson = new Gson();
-		
-		String JsonEtiquetas = gson.toJson(listaEtiquetas);
-		
-		System.out.println(JsonEtiquetas);
-		
-		PrintWriter out = response.getWriter();
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		out.print(JsonEtiquetas);
-		out.flush();
 	}
 }

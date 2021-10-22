@@ -8,7 +8,6 @@ package api;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,18 +17,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import db.ControlEtiquetas;
-import objetos.Etiqueta;
+import db.ControlUsuarios;
+import objetos.Usuario;
 
 /**
  *
  * @author fernanrod
  */
-@WebServlet(name = "ObtenerEtiquetas", urlPatterns = {"/obtener-etiquetas"})
-public class ObtenerEtiquetas extends HttpServlet {
+@WebServlet(name = "ObtenerUsuario", urlPatterns = {"/obtener-usuario"})
+public class ObtenerUsuario extends HttpServlet {
 
+	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 	/**
-	 * Handles the HTTP <code>POST</code> method.
+	 * Handles the HTTP <code>GET</code> method.
 	 *
 	 * @param request servlet request
 	 * @param response servlet response
@@ -39,24 +39,28 @@ public class ObtenerEtiquetas extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
-		
-		ArrayList<Etiqueta> listaEtiquetas;
+		String username = request.getParameter("username");
+
 		try {
-			listaEtiquetas = ControlEtiquetas.obtenerEtiquetas();
+			Usuario usuario = ControlUsuarios.obtenerUsuario(username);
+			
+			
+			Gson gson = new Gson();
+			
+			String usuarioJSON = gson.toJson(usuario, Usuario.class);
+						
+			PrintWriter out = response.getWriter();
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			out.print(usuarioJSON);
+			out.flush();
+
 		} catch (SQLException e) {
-			listaEtiquetas = new ArrayList<>();
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			e.printStackTrace();
+		} catch (Exception e) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			e.printStackTrace();
 		}
-		Gson gson = new Gson();
-		
-		String JsonEtiquetas = gson.toJson(listaEtiquetas);
-		
-		System.out.println(JsonEtiquetas);
-		
-		PrintWriter out = response.getWriter();
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		out.print(JsonEtiquetas);
-		out.flush();
 	}
 }

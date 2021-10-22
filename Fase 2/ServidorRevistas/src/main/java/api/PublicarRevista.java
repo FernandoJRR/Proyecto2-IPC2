@@ -18,16 +18,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import db.ControlUsuarios;
-import objetos.Editor;
-import utilidades.Servlets;
+import db.ControlRevistas;
+import objetos.Revista;
 
 /**
  *
  * @author fernanrod
  */
-@WebServlet(name = "RegistrarEditor", urlPatterns = {"/registrar-editor"})
-public class RegistrarEditor extends HttpServlet {
+@WebServlet(name = "PublicarRevista", urlPatterns = {"/publicar-revista"})
+public class PublicarRevista extends HttpServlet {
+
 	/**
 	 * Handles the HTTP <code>POST</code> method.
 	 *
@@ -39,19 +39,26 @@ public class RegistrarEditor extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
-			String body = Servlets.getBody(request);
-			
-			Gson gson = new Gson();
-			Editor editor = gson.fromJson(body, Editor.class);
-			try {
-				ControlUsuarios.registrarEditor(editor);
-				response.getWriter().append(gson.toJson(true));
-			} catch (SQLException e) {
-				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-				e.printStackTrace();
-			} catch (Exception e) {
-				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-				e.printStackTrace();
-			}
+		String editorUsername = request.getParameter("username");
+		
+		BufferedReader reader = request.getReader();
+
+		String body = "";
+		String line = reader.readLine();
+		while (line != null) {
+			body = body + line;
+			line = reader.readLine();
+		}
+		
+		Gson gson = new Gson();
+		Revista revistaCreada = gson.fromJson(body, Revista.class);
+		
+		try {
+			ControlRevistas.publicarRevista(revistaCreada, editorUsername);
+			response.getWriter().append(gson.toJson(true));
+		} catch (SQLException e) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			e.printStackTrace();
+		}
 	}
 }
