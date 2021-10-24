@@ -14,7 +14,7 @@ import { PaginaLectorComponent } from './pagina-lector/pagina-lector.component';
 import { PaginaEditorComponent } from './pagina-editor/pagina-editor.component';
 import { HeaderComponent } from './header/header.component';
 import { PaginaPerfilComponent } from './pagina-perfil/pagina-perfil.component';
-import { PaginaHomeComponent } from './pagina-home/pagina-home.component';
+import { PaginaHomeLectorComponent } from './pagina-home-lector/pagina-home-lector.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DialogEditarDescripcionComponent } from './dialogs/pagina-perfil-usuario/dialog-editar-descripcion/dialog-editar-descripcion.component';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -22,10 +22,25 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from "@angular/material/checkbox";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatNativeDateModule } from "@angular/material/core";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { MatCardModule } from "@angular/material/card";
+import { MatExpansionModule } from "@angular/material/expansion";
+import { MatIconModule } from "@angular/material/icon";
+import { MatTableModule } from "@angular/material/table";
 import { DialogEditarHobbiesComponent } from './dialogs/pagina-perfil-usuario/dialog-editar-hobbies/dialog-editar-hobbies.component';
 import { DialogEditarGeneroComponent } from './dialogs/pagina-perfil-usuario/dialog-editar-genero/dialog-editar-genero.component';
 import { DialogEditarEtiquetasComponent } from './dialogs/pagina-perfil-usuario/dialog-editar-etiquetas/dialog-editar-etiquetas.component';
 import { DialogEditarFotoPerfilComponent } from './dialogs/pagina-perfil-usuario/dialog-editar-foto-perfil/dialog-editar-foto-perfil.component';
+import { PaginaHomeEditorComponent } from './pagina-home-editor/pagina-home-editor.component';
+import { ReportesEditorComponent } from './reportes-editor/reportes-editor.component';
+import { DialogPublicarRevistaComponent } from './dialogs/pagina-home-editor/dialog-publicar-revista/dialog-publicar-revista.component';
+import { InformacionRevistaComponent } from './informacion-revista/informacion-revista.component';
+import { DialogModificarRevistaComponent } from './dialogs/informacion-revista/dialog-modificar-revista/dialog-modificar-revista.component';
+import { DialogPublicarNumeroComponent } from './dialogs/informacion-revista/dialog-publicar-numero/dialog-publicar-numero.component';
+import { DialogModificarEstadoSuscripcionesComponent } from './dialogs/informacion-revista/dialog-modificar-revista/dialog-modificar-estado-suscripciones/dialog-modificar-estado-suscripciones.component';
 
 @NgModule({
   declarations: [
@@ -38,12 +53,19 @@ import { DialogEditarFotoPerfilComponent } from './dialogs/pagina-perfil-usuario
     PaginaEditorComponent,
     HeaderComponent,
     PaginaPerfilComponent,
-    PaginaHomeComponent,
+    PaginaHomeLectorComponent,
     DialogEditarDescripcionComponent,
     DialogEditarHobbiesComponent,
     DialogEditarGeneroComponent,
     DialogEditarEtiquetasComponent,
     DialogEditarFotoPerfilComponent,
+    PaginaHomeEditorComponent,
+    ReportesEditorComponent,
+    DialogPublicarRevistaComponent,
+    InformacionRevistaComponent,
+    DialogModificarRevistaComponent,
+    DialogPublicarNumeroComponent,
+    DialogModificarEstadoSuscripcionesComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,6 +80,14 @@ import { DialogEditarFotoPerfilComponent } from './dialogs/pagina-perfil-usuario
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSnackBarModule,
+    MatCardModule,
+    MatExpansionModule,
+    MatIconModule,
+    MatTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

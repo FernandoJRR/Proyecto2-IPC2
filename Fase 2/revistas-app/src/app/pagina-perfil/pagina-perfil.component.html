@@ -12,10 +12,10 @@
                   <a (click)="editarFotoDePerfil()" class="btn btn-outline-secondary btn-sm btn-block mb-5">Editar Foto de Perfil</a>
                 </div>
             </div>
-            <h5 class="mt-2 mb-2" style="margin-left:5%;">
+            <h5 class="mt-2 mb-2" style="margin-left:5%;" *ngIf="this.tipoUsuario==&quot;USUARIO&quot;">
               Etiquetas <!-- <button class="btn btn-outline-light" style="margin-left:3%;" (click)="editarDescripcion()"><img src="assets/images/edit-icon.svg"></button> -->
             </h5> 
-            <div class="bg-light p-4 d-flex justify-content-end text-center">
+            <div class="bg-light p-4 d-flex justify-content-end text-center" *ngIf="this.tipoUsuario==&quot;USUARIO&quot;">
                 <ul class="list-inline mb-0">
                     <li class="list-inline-item" *ngFor="let etiqueta of etiquetas">
                       <h5 class="font-weight-bold mb-0 d-block">{{etiqueta.nombre}}</h5>

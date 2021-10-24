@@ -9,8 +9,9 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
 
   usuario: string | null = localStorage.getItem('username');
+  tipoUsuario: string | null = localStorage.getItem('tipoUsuario');
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {  }
 
   ngOnInit(): void {
   }

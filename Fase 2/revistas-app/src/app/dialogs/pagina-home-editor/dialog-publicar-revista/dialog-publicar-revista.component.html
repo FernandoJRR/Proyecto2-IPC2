@@ -1,0 +1,43 @@
+<h1 mat-dialog-title>Publicar Revista</h1>
+<div mat-dialog-content>
+  <p>Ingresa los datos de la revista</p>
+  <form [formGroup]="formRevista">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Nombre de la Revista</mat-label>
+      <input matInput placeholder="Nombre" formControlName="nombre">
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Descripcion</mat-label>
+      <textarea matInput placeholder="Descripcion" formControlName="descripcion"></textarea>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="fill" style="width: 70%;">
+      <mat-label>Precio de la Suscripcion</mat-label>
+      <input matInput placeholder="Precio" type="number" step="0.01" formControlName="precio">
+    </mat-form-field>
+    <mat-checkbox [formControl]="precioGratis" style="margin-left:10%;" (change)="changeGratis()">Gratis</mat-checkbox>
+    <br>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Fecha de Publicacion</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="fechaPublicacion">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Categoria de la Revista</mat-label>
+      <mat-select formControlName="categoria">
+        <mat-option *ngFor="let categoria of categorias" [value]="categoria.nombre">
+          {{categoria.nombre}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-error *ngIf="!formRevista.pristine && (formRevista.invalid || validez==false)">
+      Hay campos invalidos o vacios
+    </mat-error>
+    <div mat-dialog-actions>
+      <button mat-button (click)="cerrar()">Close</button>
+      <button mat-raised-button color="primary" (click)="guardar()">Guardar</button>
+    </div>
+  </form>
+</div>

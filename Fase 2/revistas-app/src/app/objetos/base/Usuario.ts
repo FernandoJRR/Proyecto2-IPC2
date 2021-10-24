@@ -1,6 +1,5 @@
 import { Etiqueta } from "./Etiqueta";
 import { GeneroEnum } from "./GeneroEnum";
-import { UsuarioModel } from "../../modelos/UsuarioModel";
 
 export class Usuario {
     private _username: string;

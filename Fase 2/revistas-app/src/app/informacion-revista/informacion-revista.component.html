@@ -1,0 +1,14 @@
+<mat-expansion-panel class="mt-3 mb-3" (opened)="mostrarInformacion()" (closed)="ocultarInformacion()">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <b>{{revista.nombre}}</b>
+    </mat-panel-title>
+    <mat-panel-description>
+      {{revista.descripcion}}
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+    <div *ngIf="tarjetaAbierta">
+      <button mat-stroked-button color="primary" style="margin-right:1%;" (click)="modificarRevista()">Modificar Revista</button>
+      <button mat-stroked-button color="accent" (click)="publicarNuevoNumero()">Publicar Nuevo Numero</button>
+    </div>
+</mat-expansion-panel>

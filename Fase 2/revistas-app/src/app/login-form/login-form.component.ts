@@ -52,9 +52,11 @@ export class LoginFormComponent implements OnInit {
         localStorage.clear();
         localStorage.setItem('username', this.usuario.username);
         if (tipo=="USUARIO") {
+          localStorage.setItem('tipoUsuario', "USUARIO");
           this.loginForm.reset();
           this.router.navigate(['/lector']);
         } else if (tipo=="EDITOR") {
+          localStorage.setItem('tipoUsuario', "EDITOR");
           this.loginForm.reset();
           this.router.navigate(['/editor']);
         }

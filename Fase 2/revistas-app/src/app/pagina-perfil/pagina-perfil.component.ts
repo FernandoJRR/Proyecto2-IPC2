@@ -19,6 +19,7 @@ import { PaginaPerfilService } from '../servicios/pagina-perfil/pagina-perfil.se
 export class PaginaPerfilComponent implements OnInit {
 
   username: string | null = localStorage.getItem('username');
+  tipoUsuario: string | null = localStorage.getItem('tipoUsuario');
 
   usuario: UsuarioModel;
 
@@ -46,7 +47,9 @@ export class PaginaPerfilComponent implements OnInit {
       this.descripcion = this.usuario.descripcion!; 
       this.hobbies = this.usuario.hobbies!; 
       this.genero = this.usuario.genero!; 
-      this.etiquetas = this.usuario.etiquetas!;
+      if (this.tipoUsuario=="USUARIO") {
+        this.etiquetas = this.usuario.etiquetas!;
+      }
     },((error: any) => {
       console.log("error");
       console.log(error);
