@@ -11,12 +11,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.LinkOption;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ResourceBundle.Control;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -27,48 +21,20 @@ import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
 
-import db.ControlUsuarios;
+import db.ControlRevistas;
+import objetos.NumeroRevista;
 
 /**
  *
  * @author fernanrod
  */
-@WebServlet(name = "UploadFile", urlPatterns = {"/upload-file"})
+@WebServlet(name = "UploadPDF", urlPatterns = {"/upload-pdf"})
 @MultipartConfig(location = "/tmp")
-public class UploadFile extends HttpServlet {
-
+public class UploadPDF extends HttpServlet {
+	
 	public static final String homePath = System.getProperty("user.home");
-	public static final String pathFotos = "/ServidorRevistas/fotos-perfil";
-    public static final String PATH_FOTOS = homePath+pathFotos;
-
-
-	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-	/**
-	 * Handles the HTTP <code>GET</code> method.
-	 *
-	 * @param request servlet request
-	 * @param response servlet response
-	 * @throws ServletException if a servlet-specific error occurs
-	 * @throws IOException if an I/O error occurs
-	 */
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-		throws ServletException, IOException {
-		String username = request.getParameter("username");
-
-		try {
-			File archivo = new File(PATH_FOTOS+"/"+username);
-			if (archivo.delete()) {
-				ControlUsuarios.eliminarFotoDePerfil(username);
-
-				Gson gson = new Gson();
-				response.getWriter().append(gson.toJson(true));
-			}
-		} catch (Exception e) {
-			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			e.printStackTrace();
-		}
-	}
+	public static final String pathPDF = "/ServidorRevistas/pdf-revistas";
+    public static final String PATH_PDF = homePath+pathPDF;
 
 	/**
 	 * Handles the HTTP <code>POST</code> method.
@@ -82,7 +48,7 @@ public class UploadFile extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 
-		String username = request.getParameter("username");
+		Integer numeroRevista = Integer.parseInt(request.getParameter("numero"));
 		Part filePart = request.getPart("datafile");
 		String fileName = filePart.getHeader("Content-Type");
         InputStream fileStream = filePart.getInputStream();
@@ -92,16 +58,23 @@ public class UploadFile extends HttpServlet {
             while (line != null) {
                 line = in.readLine();
             }
-			File prueba = new File(PATH_FOTOS);
+			File prueba = new File(PATH_PDF);
 			if (!(prueba.exists() && prueba.isDirectory())) {
 				prueba.mkdirs();
 			}
 
-            String filePath = PATH_FOTOS+"/"+username;
+			NumeroRevista revista = ControlRevistas.obtenerNumeroRevista(numeroRevista);
 
-            filePart.write(filePath);
+            String filePath = PATH_PDF+"/"+revista.getIdRevista();
+
+			File pruebaDirectorioPDFRevista = new File(filePath);
+			if (!(pruebaDirectorioPDFRevista.exists() && pruebaDirectorioPDFRevista.isDirectory())) {
+				pruebaDirectorioPDFRevista.mkdirs();
+			}
+
+            filePart.write(filePath+"/"+numeroRevista);
 			
-			ControlUsuarios.guardarFotoPerfil(username, pathFotos);
+			ControlRevistas.guardarPDFRevista(revista.getIdRevista(), numeroRevista, pathPDF);
 			
 			Gson gson = new Gson();
 			response.getWriter().append(gson.toJson(true));
@@ -110,5 +83,4 @@ public class UploadFile extends HttpServlet {
 			e.printStackTrace();
         }
 	}
-
 }

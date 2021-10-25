@@ -27,4 +27,17 @@ public class ControlEtiquetas {
         }
         return etiquetas;
     }
+    
+    public static ArrayList<Etiqueta> obtenerEtiquetas(Integer idRevista) throws SQLException {
+        ArrayList<Etiqueta> etiquetas = new ArrayList<>();
+        PreparedStatement obtencionEtiquetas = ConexionDB.getConnection().prepareStatement("SELECT * FROM etiqueta_revista WHERE revista = ?");
+        obtencionEtiquetas.setInt(1, idRevista);
+        
+        ResultSet etiquetasObtenidas = obtencionEtiquetas.executeQuery();
+        
+        while (etiquetasObtenidas.next()) {
+            etiquetas.add(new Etiqueta(etiquetasObtenidas.getString("etiqueta")));
+        }
+        return etiquetas;
+    }
 }

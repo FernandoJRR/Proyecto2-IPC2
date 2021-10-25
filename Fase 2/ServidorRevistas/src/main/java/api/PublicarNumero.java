@@ -5,6 +5,7 @@
  */
 package api;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -17,19 +18,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import db.ControlUsuarios;
-import objetos.Usuario;
+import db.ControlRevistas;
+import objetos.NumeroRevista;
 
 /**
  *
  * @author fernanrod
  */
-@WebServlet(name = "ObtenerUsuario", urlPatterns = {"/obtener-usuario"})
-public class ObtenerUsuario extends HttpServlet {
+@WebServlet(name = "PublicarNumero", urlPatterns = {"/publicar-numero"})
+public class PublicarNumero extends HttpServlet {
 
-	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 	/**
-	 * Handles the HTTP <code>GET</code> method.
+	 * Handles the HTTP <code>POST</code> method.
 	 *
 	 * @param request servlet request
 	 * @param response servlet response
@@ -37,23 +37,22 @@ public class ObtenerUsuario extends HttpServlet {
 	 * @throws IOException if an I/O error occurs
 	 */
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
-		String username = request.getParameter("username");
+		BufferedReader reader = request.getReader();
 
+		String body = "";
+		String line = reader.readLine();
+		while (line != null) {
+			body = body + line;
+			line = reader.readLine();
+		}
+		
+		Gson gson = new Gson();
+		NumeroRevista numeroRevista = gson.fromJson(body, NumeroRevista.class);
 		try {
-			Usuario usuario = ControlUsuarios.obtenerUsuario(username);
-			
-			Gson gson = new Gson();
-			
-			String usuarioJSON = gson.toJson(usuario, Usuario.class);
-						
-			PrintWriter out = response.getWriter();
-			response.setContentType("application/json");
-			response.setCharacterEncoding("UTF-8");
-			out.print(usuarioJSON);
-			out.flush();
-
+			Integer numeroRevistaCreado = ControlRevistas.publicarNumeroRevista(numeroRevista);
+			response.getWriter().append(gson.toJson(numeroRevistaCreado));
 		} catch (SQLException e) {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			e.printStackTrace();

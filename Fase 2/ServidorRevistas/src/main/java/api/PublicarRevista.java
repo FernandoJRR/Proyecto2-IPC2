@@ -40,6 +40,7 @@ public class PublicarRevista extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 		String editorUsername = request.getParameter("username");
+		Float precioSuscripcion = Float.valueOf(request.getParameter("precioSuscripcion"));
 		
 		BufferedReader reader = request.getReader();
 
@@ -54,7 +55,7 @@ public class PublicarRevista extends HttpServlet {
 		Revista revistaCreada = gson.fromJson(body, Revista.class);
 		
 		try {
-			ControlRevistas.publicarRevista(revistaCreada, editorUsername);
+			ControlRevistas.publicarRevista(revistaCreada, precioSuscripcion, editorUsername);
 			response.getWriter().append(gson.toJson(true));
 		} catch (SQLException e) {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

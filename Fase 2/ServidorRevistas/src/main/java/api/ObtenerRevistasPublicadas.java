@@ -46,7 +46,6 @@ public class ObtenerRevistasPublicadas extends HttpServlet {
 		try {
 			ArrayList<Revista> revistasPublicadas = ControlRevistas.obtenerRevistasPublicadas(editorUsername);
 			
-
 			Gson gson = new Gson();
 			
 			String JsonRevistas = gson.toJson(revistasPublicadas);

@@ -8,6 +8,7 @@ package api;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,15 +18,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import db.ControlUsuarios;
-import objetos.Usuario;
+import db.ControlRevistas;
+import objetos.Revista;
 
 /**
  *
  * @author fernanrod
  */
-@WebServlet(name = "ObtenerUsuario", urlPatterns = {"/obtener-usuario"})
-public class ObtenerUsuario extends HttpServlet {
+@WebServlet(name = "ObtenerRevistasRecomentadas", urlPatterns = {"/obtener-revistas-recomendadas"})
+public class ObtenerRevistasRecomentadas extends HttpServlet {
 
 	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 	/**
@@ -40,24 +41,22 @@ public class ObtenerUsuario extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 		String username = request.getParameter("username");
-
+		
 		try {
-			Usuario usuario = ControlUsuarios.obtenerUsuario(username);
-			
+			ArrayList<Revista> revistasRecomendadas = ControlRevistas.obtenerRevistasRecomendadas(username);
+
 			Gson gson = new Gson();
 			
-			String usuarioJSON = gson.toJson(usuario, Usuario.class);
-						
+			String revistasJSON = gson.toJson(revistasRecomendadas);
+			
+			System.out.println(revistasJSON);
+			
 			PrintWriter out = response.getWriter();
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
-			out.print(usuarioJSON);
+			out.print(revistasJSON);
 			out.flush();
-
 		} catch (SQLException e) {
-			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			e.printStackTrace();
-		} catch (Exception e) {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			e.printStackTrace();
 		}

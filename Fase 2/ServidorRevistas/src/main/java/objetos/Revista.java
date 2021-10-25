@@ -5,6 +5,7 @@
  */
 package objetos;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -16,36 +17,46 @@ public class Revista {
     private Integer id;
     private String nombre;
     private String descripcion;
-    private Float precioSuscripcion;
     private Date fechaPublicacion;
     private String categoria;
+    private ArrayList<Etiqueta> etiquetas;
+    private String estadoSuscripciones;
     
-    public Revista(Integer id, String nombre, String descripcion, Float precioSuscripcion, Date fechaPublicacion, String categoria) {
+    public Revista(Integer id, String nombre, String descripcion, Date fechaPublicacion, String categoria, ArrayList<Etiqueta> etiquetas, String estadoSuscripciones) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.precioSuscripcion = precioSuscripcion;
         this.fechaPublicacion = fechaPublicacion;
         this.categoria = categoria;
+        this.etiquetas = etiquetas;
+        this.estadoSuscripciones = estadoSuscripciones;
     }
     
+    public Integer getId() {
+        return this.id;
+    }
+
     public String getNombre() {
-        return nombre;
+        return this.nombre;
     }
 
     public String getDescripcion() {
-        return descripcion;
-    }
-
-    public Float getPrecioSuscripcion() {
-        return precioSuscripcion;
+        return this.descripcion;
     }
 
     public Date getFechaPublicacion() {
-        return fechaPublicacion;
+        return this.fechaPublicacion;
     }
 
     public String getCategoria() {
-        return categoria;
+        return this.categoria;
+    }
+    
+    public ArrayList<Etiqueta> getEtiquetas() {
+        return etiquetas;
+    }
+    
+    public String getEstadoSuscripciones() {
+        return this.estadoSuscripciones;
     }
 }

@@ -17,15 +17,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import db.ControlUsuarios;
-import objetos.Usuario;
+import db.ControlRevistas;
 
 /**
  *
  * @author fernanrod
  */
-@WebServlet(name = "ObtenerUsuario", urlPatterns = {"/obtener-usuario"})
-public class ObtenerUsuario extends HttpServlet {
+@WebServlet(name = "CambiarEstadoComentarios", urlPatterns = {"/cambiar-estado-comentarios"})
+public class CambiarEstadoComentarios extends HttpServlet {
 
 	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 	/**
@@ -39,25 +38,15 @@ public class ObtenerUsuario extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
-		String username = request.getParameter("username");
-
+		Integer idRevista = Integer.valueOf(request.getParameter("id"));
+		Integer numeroRevista = Integer.valueOf(request.getParameter("numero"));
+		String estado = request.getParameter("estado");
+		
 		try {
-			Usuario usuario = ControlUsuarios.obtenerUsuario(username);
-			
+			ControlRevistas.cambiarEstadoComentarios(idRevista, numeroRevista, estado);
 			Gson gson = new Gson();
-			
-			String usuarioJSON = gson.toJson(usuario, Usuario.class);
-						
-			PrintWriter out = response.getWriter();
-			response.setContentType("application/json");
-			response.setCharacterEncoding("UTF-8");
-			out.print(usuarioJSON);
-			out.flush();
-
+			response.getWriter().append(gson.toJson(true));
 		} catch (SQLException e) {
-			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			e.printStackTrace();
-		} catch (Exception e) {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			e.printStackTrace();
 		}
