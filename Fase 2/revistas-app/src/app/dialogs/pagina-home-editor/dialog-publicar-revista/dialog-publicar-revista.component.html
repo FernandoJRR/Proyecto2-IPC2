@@ -32,6 +32,19 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+    <br>
+      <mat-label>Elige etiquetas que representan a la revista (elige al menos 1):</mat-label>
+      <div *ngFor="let etiqueta of etiquetas">
+        <div class="form-check" formGroupName="etiquetasSeleccionadas">
+          <!--
+          <mat-checkbox [value]="etiqueta.nombre" id="etiqueta-{{etiqueta.nombre}}" (change)="cambioEtiqueta($event)" formControlName="checkBox{{etiqueta.nombre}}">{{etiqueta.nombre}}</mat-checkbox>
+-->
+          <label class="form-check-label" for="flexCheckDefault">
+          {{etiqueta.nombre}}
+          </label>
+          <input class="form-check-input" type="checkbox" [value]="etiqueta.nombre" id="etiqueta-{{etiqueta.nombre}}" (change)="cambioEtiqueta($event)" formControlName="checkBox{{etiqueta.nombre}}">
+        </div>
+      </div>
     <mat-error *ngIf="!formRevista.pristine && (formRevista.invalid || validez==false)">
       Hay campos invalidos o vacios
     </mat-error>

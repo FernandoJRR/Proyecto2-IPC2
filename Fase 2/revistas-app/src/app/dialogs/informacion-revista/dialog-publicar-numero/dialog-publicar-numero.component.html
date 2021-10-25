@@ -1,1 +1,37 @@
-<p>dialog-publicar-numero works!</p>
+<h1 mat-dialog-title>Publicar Numero</h1>
+<div mat-dialog-content>
+  <p>Ingresa los datos del numero</p>
+  <form [formGroup]="formRevista">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Nombre del Numero</mat-label>
+      <input matInput placeholder="Nombre" formControlName="nombre">
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Descripcion</mat-label>
+      <textarea matInput placeholder="Descripcion" formControlName="descripcion"></textarea>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Fecha de Publicacion</mat-label>
+      <input matInput [min]="this.fechaPublicacionRevista" [matDatepicker]="picker" formControlName="fechaPublicacion">
+      <mat-hint>La fecha de publicacion del numero debe ser despues de la de la revista.</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <br>
+    <div class="input-group mb-3 mt-4">
+        <input type="file" (change)="cargar($event)" class="form-control" id="archivo-foto" formControlName="pdf">
+    </div>
+
+    <mat-error *ngIf="!formRevista.pristine && (formRevista.invalid || validez==false)">
+      Hay campos invalidos o vacios
+    </mat-error>
+
+    <div mat-dialog-actions>
+      <button mat-button (click)="cerrar()">Close</button>
+      <button mat-raised-button color="primary" (click)="guardar()">Guardar</button>
+    </div>
+  </form>
+</div>
+

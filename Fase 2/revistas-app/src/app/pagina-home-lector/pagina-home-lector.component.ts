@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Revista } from '../objetos/editor/Revista';
+import { PaginaHomeService } from '../servicios/pagina-lector/pagina-home.service';
 
 @Component({
   selector: 'app-pagina-home-lector',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PaginaHomeLectorComponent implements OnInit {
 
-  constructor() { }
+  revistasRecomendadas: Array<Revista> = [];
+
+  constructor(private homeServices: PaginaHomeService) { }
 
   ngOnInit(): void {
+    this.homeServices.obtenerRevistasRecomendadas(localStorage.getItem("username")!)
+    .subscribe(revistas => {
+      this.revistasRecomendadas = revistas
+    });
   }
 
 }

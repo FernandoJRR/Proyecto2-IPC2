@@ -9,6 +9,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class DialogModificarEstadoSuscripcionesComponent implements OnInit {
 
   validez: boolean = true;
+  
+  estados: string[] = ["PERMITIDAS","RESTRINGIDAS"];
 
   constructor(
     public dialogRef: MatDialogRef<DialogModificarEstadoSuscripcionesComponent>,

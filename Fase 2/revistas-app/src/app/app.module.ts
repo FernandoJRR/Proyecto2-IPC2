@@ -41,6 +41,11 @@ import { InformacionRevistaComponent } from './informacion-revista/informacion-r
 import { DialogModificarRevistaComponent } from './dialogs/informacion-revista/dialog-modificar-revista/dialog-modificar-revista.component';
 import { DialogPublicarNumeroComponent } from './dialogs/informacion-revista/dialog-publicar-numero/dialog-publicar-numero.component';
 import { DialogModificarEstadoSuscripcionesComponent } from './dialogs/informacion-revista/dialog-modificar-revista/dialog-modificar-estado-suscripciones/dialog-modificar-estado-suscripciones.component';
+import { InformacionNumeroRevistaComponent } from './informacion-numero-revista/informacion-numero-revista.component';
+import { DialogModificarNumeroComponent } from './dialogs/informacion-numero-revista/dialog-modificar-numero/dialog-modificar-numero.component';
+import { DialogModificarEstadoMeGustaComponent } from './dialogs/informacion-numero-revista/dialog-modificar-numero/dialog-modificar-estado-me-gusta/dialog-modificar-estado-me-gusta.component';
+import { DialogModificarEstadoComentariosComponent } from './dialogs/informacion-numero-revista/dialog-modificar-numero/dialog-modificar-estado-comentarios/dialog-modificar-estado-comentarios.component';
+import { DialogVerComentariosComponent } from './dialogs/informacion-numero-revista/dialog-ver-comentarios/dialog-ver-comentarios.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +71,11 @@ import { DialogModificarEstadoSuscripcionesComponent } from './dialogs/informaci
     DialogModificarRevistaComponent,
     DialogPublicarNumeroComponent,
     DialogModificarEstadoSuscripcionesComponent,
+    InformacionNumeroRevistaComponent,
+    DialogModificarNumeroComponent,
+    DialogModificarEstadoMeGustaComponent,
+    DialogModificarEstadoComentariosComponent,
+    DialogVerComentariosComponent,
   ],
   imports: [
     BrowserModule,

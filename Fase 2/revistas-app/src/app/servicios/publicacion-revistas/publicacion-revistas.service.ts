@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { RevistaModel } from 'src/app/modelos/RevistaModel';
 import { Categoria } from 'src/app/objetos/base/Categoria';
+import { Etiqueta } from 'src/app/objetos/base/Etiqueta';
 import { Revista } from 'src/app/objetos/editor/Revista';
 
 @Injectable({
@@ -15,6 +16,10 @@ export class PublicacionRevistasService {
 
     public obtenerCategorias(): Observable<Categoria[]> {
         return this.httpClient.get<Categoria[]>(this.API_URL + "obtener-categorias");
+    }
+
+    public obtenerEtiquetas(): Observable<Etiqueta[]> {
+        return this.httpClient.get<Etiqueta[]>(this.API_URL + "obtener-etiquetas");
     }
 
     public publicarRevista(revista: RevistaModel, precioSuscripcion: number, editorUsername: string): Observable<boolean> {

@@ -27,4 +27,12 @@ export class FilesService {
     let urlImagen = this.API_URL+"/show-file?username="+username+"&marca="+marca;
     return urlImagen;
   }
+  
+  public uploadPDF(pdf: File, numeroRevista: number): Observable<boolean> {
+    const formData: FormData = new FormData();
+
+    formData.append("datafile", pdf, pdf.name);
+
+    return this.httpClient.post<boolean>(this.API_URL + "/upload-pdf?numero="+numeroRevista, formData);
+  }
 }

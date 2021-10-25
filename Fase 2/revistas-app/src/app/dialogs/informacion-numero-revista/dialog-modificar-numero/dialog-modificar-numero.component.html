@@ -1,0 +1,20 @@
+<button mat-icon-button (click)="cerrar()" style="margin-left:90%;"><mat-icon>close</mat-icon></button>
+<h2 mat-dialog-title>Modificar Revista</h2> 
+
+<h5>Modificar PDF</h5>
+<div class="input-group mb-3 mt-4">
+    <input type="file" (change)="cargar($event)" class="form-control" id="archivo-foto" formControlName="pdf">
+</div>
+<button mat-stroked-button style="margin-right:2%;">Cambiar PDF</button>  <mat-hint>Elige un nuevo PDF para cambiarlo</mat-hint>
+<div class="px-4 py-3">
+  <h5>Estado de Me Gusta <button mat-icon-button (click)="editarEstadoMeGusta()"><mat-icon>edit</mat-icon></button></h5>
+  <div class="p-4 rounded shadow-sm bg-light">
+    <div class="multilinea">{{data.numeroRevista.restriccionMeGusta}}</div>
+  </div>
+</div>
+<div class="px-4 py-3">
+  <h5>Estado de Comentarios <button mat-icon-button (click)="editarEstadoComentarios()"><mat-icon>edit</mat-icon></button></h5>
+  <div class="p-4 rounded shadow-sm bg-light">
+    <div class="multilinea">{{data.numeroRevista.restriccionComentarios}}</div>
+  </div>
+</div>

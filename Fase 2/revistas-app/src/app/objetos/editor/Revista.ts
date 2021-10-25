@@ -1,4 +1,5 @@
 import { Categoria } from "../base/Categoria";
+import { Etiqueta } from "../base/Etiqueta";
 
 export class Revista {
   private _id: number | null;
@@ -6,14 +7,16 @@ export class Revista {
   private _descripcion: string;
   private _fechaPublicacion: Date;
   private _categoria: Categoria;
+  private _etiquetas: Array<Etiqueta>;
   private _estadoSuscripciones: string | null;
 
-  constructor(id: number | null, nombre: string, descripcion: string, fechaPublicacion: Date, categoria: Categoria, estadoSuscripciones: string|null) {
+  constructor(id: number | null, nombre: string, descripcion: string, fechaPublicacion: Date, categoria: Categoria, etiquetas: Array<Etiqueta>, estadoSuscripciones: string|null) {
     this._id = id;
     this._nombre = nombre;
     this._descripcion = descripcion;
     this._fechaPublicacion = fechaPublicacion;
     this._categoria = categoria;
+    this._etiquetas = etiquetas;
     this._estadoSuscripciones = estadoSuscripciones;
   }
 
@@ -38,7 +41,15 @@ export class Revista {
     return this._categoria;
   }
 
+  public get etiquetas(): Array<Etiqueta> {
+    return this._etiquetas;
+  }
+
   public get estadoSuscripciones(): string|null {
     return this._estadoSuscripciones;
+  }
+
+  public set estadoSuscripciones(value: string | null) {
+    this._estadoSuscripciones = value;
   }
 }

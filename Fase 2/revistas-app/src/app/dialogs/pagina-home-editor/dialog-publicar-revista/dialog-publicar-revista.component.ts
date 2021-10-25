@@ -2,8 +2,10 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Categoria } from 'src/app/objetos/base/Categoria';
+import { Etiqueta } from 'src/app/objetos/base/Etiqueta';
 import { Revista } from 'src/app/objetos/editor/Revista';
 import { PublicacionRevistasService } from 'src/app/servicios/publicacion-revistas/publicacion-revistas.service';
+import { etiquetasMinimasSeleccionadas } from './etiquetas-minimas-seleccionadas.validator';
 
 @Component({
   selector: 'app-dialog-publicar-revista',
@@ -17,6 +19,8 @@ export class DialogPublicarRevistaComponent implements OnInit {
   formRevista: FormGroup;
 
   categorias: Array<Categoria> = [];
+  etiquetas: Array<Etiqueta> = [];
+  etiquetasElegidas: Array<string> = [];
 
   precioGratis = new FormControl(false);
 
@@ -34,12 +38,21 @@ export class DialogPublicarRevistaComponent implements OnInit {
         precioGratis: this.precioGratis,
         fechaPublicacion: [null, Validators.required],
         categoria: [null, Validators.required],
+        etiquetasSeleccionadas: new FormGroup({}, etiquetasMinimasSeleccionadas())
       })
 
       this.publicacionService.obtenerCategorias()
       .subscribe(categorias => {
         this.categorias = categorias;
       });
+
+      this.publicacionService.obtenerEtiquetas()
+      .subscribe(etiquetas => {
+        this.etiquetas = etiquetas;
+        this.etiquetas.forEach(etiqueta => {
+          (this.formRevista.get("etiquetasSeleccionadas") as FormGroup).addControl("checkBox"+etiqueta.nombre, new FormControl(false));
+        });
+    });
     }
 
   ngOnInit() {  }
@@ -49,6 +62,9 @@ export class DialogPublicarRevistaComponent implements OnInit {
       this.validez = true;
       console.log("valido")
       let precioSuscripcion = this.precioGratis.value? 0 : this.formRevista.controls.precio.value;
+      let etiquetasRevista: Array<Etiqueta> = [];
+      this.etiquetasElegidas.forEach(nombreEtiqueta => { etiquetasRevista.push( new Etiqueta(nombreEtiqueta)) });
+
       let revistaCreada = 
       new Revista(
         null,
@@ -56,6 +72,7 @@ export class DialogPublicarRevistaComponent implements OnInit {
         this.formRevista.controls.descripcion.value,
         this.formRevista.controls.fechaPublicacion.value,
         this.formRevista.controls.categoria.value,
+        etiquetasRevista,
         null
       );
 
@@ -78,6 +95,17 @@ export class DialogPublicarRevistaComponent implements OnInit {
       this.formRevista.controls.precio.enable();
       this.formRevista.controls.precio.addValidators(Validators.required);
       this.formRevista.controls.precio.updateValueAndValidity();
+    }
+  }
+
+  public cambioEtiqueta(evento: any){
+    if (evento.currentTarget.checked) {
+      this.etiquetasElegidas.push(evento.target.value);
+    } else {
+      const index = this.etiquetasElegidas.indexOf(evento.target.value, 0);
+      if (index > -1) {
+         this.etiquetasElegidas.splice(index, 1);
+      }
     }
   }
 

@@ -1,9 +1,9 @@
-<h1 mat-dialog-title>Editar Estado Suscripciones</h1>
+<h1 mat-dialog-title>Editar Estado Comentarios</h1>
 <div mat-dialog-content>
-  <p>Ingresa los cambios al estado de las suscripciones</p>
+  <p>Ingresa los cambios al estado de los comentarios</p>
   <mat-form-field appearance="fill" style="min-width:100%;">
     <mat-label>Estado</mat-label>
-    <mat-select matNativeControl [(ngModel)]="data.estadoSuscripciones" name="estadoSuscripciones">
+    <mat-select matNativeControl [(ngModel)]="data.estadoComentarios" name="estadoComentarios">
       <mat-option *ngFor="let option of estados | keyvalue" [value]="option.value">{{option.value}}</mat-option>
     </mat-select>
   </mat-form-field>

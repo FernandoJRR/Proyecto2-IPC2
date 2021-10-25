@@ -56,8 +56,19 @@ export class DialogModificarRevistaComponent implements OnInit {
 
     dialogRef.afterClosed()
     .subscribe(cambios => {
-      console.log(cambios);
-    });
+      if (cambios != undefined && cambios != null && cambios != "") {
+        this.modificacionService.cambiarEstadoSuscripcion(this.data.revista.id!, cambios)
+        .subscribe(resultado => {
+          if (resultado) {
+            this.data.revista.estadoSuscripciones = cambios;
+          }
+        },((error:any)=>{
+          console.log(error);
+        }));
+      }
+    },((error:any) => {
+      console.log(error);
+    }));
   }
 
   cerrar(): void {

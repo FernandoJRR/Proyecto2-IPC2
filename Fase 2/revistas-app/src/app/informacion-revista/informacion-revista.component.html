@@ -7,8 +7,15 @@
       {{revista.descripcion}}
     </mat-panel-description>
   </mat-expansion-panel-header>
+    <div>
+      <h5>Categoria/s:</h5>
+      <p *ngFor="let etiqueta of revista.etiquetas">{{etiqueta.nombre}}</p>
+    </div>
     <div *ngIf="tarjetaAbierta">
       <button mat-stroked-button color="primary" style="margin-right:1%;" (click)="modificarRevista()">Modificar Revista</button>
       <button mat-stroked-button color="accent" (click)="publicarNuevoNumero()">Publicar Nuevo Numero</button>
+    </div>
+    <div class="mt-3 mb-3" *ngFor="let numero of numerosPublicados">
+      <app-informacion-numero-revista [numeroRevista]="numero"></app-informacion-numero-revista>
     </div>
 </mat-expansion-panel>
