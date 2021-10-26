@@ -14,10 +14,19 @@ export class PaginaHomeLectorComponent implements OnInit {
   constructor(private homeServices: PaginaHomeService) { }
 
   ngOnInit(): void {
+    this.actualizarRevistasRecomendadas();
+  }
+  
+  cambioSuscripciones(cambio: boolean) {
+    if (cambio) {
+      this.actualizarRevistasRecomendadas();
+    }
+  }
+
+  actualizarRevistasRecomendadas(): void {
     this.homeServices.obtenerRevistasRecomendadas(localStorage.getItem("username")!)
     .subscribe(revistas => {
       this.revistasRecomendadas = revistas
     });
   }
-
 }

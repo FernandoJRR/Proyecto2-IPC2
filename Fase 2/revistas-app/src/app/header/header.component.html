@@ -10,21 +10,21 @@
           <a class="nav-link active" aria-current="page" routerLink="home">Home</a>
         </li>
         <li class="nav-item" *ngIf="this.tipoUsuario == &quot;USUARIO&quot;">
-          <a class="nav-link" href="#">Suscripciones</a>
+          <a class="nav-link" routerLink="suscripciones">Suscripciones</a>
         </li>
         <li class="nav-item" *ngIf="this.tipoUsuario == &quot;EDITOR&quot;">
           <a class="nav-link" routerLink="reportes">Reportes</a>
         </li>
       </ul>
-      <form class="d-flex mt-3" *ngIf="this.tipoUsuario == &quot;USUARIO&quot;">
+      <form class="d-flex mt-3" [formGroup]="busquedaForm" *ngIf="this.tipoUsuario == &quot;USUARIO&quot;" (ngSubmit)="buscar()">
         <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">Filtro</span>
-            <select class="form-select" style="max-width: 25%;">
-                <option selected [value]="0">Categoria</option>
-                <option [value]="1">Etiquetas</option>
+            <span class="input-group-text">Filtro</span>
+            <select class="form-select" style="max-width: 25%;" formControlName="tipoBusqueda">
+                <option value="CATEGORIA">Categoria</option>
+                <option value="ETIQUETAS">Etiquetas</option>
             </select>
-          <input type="text" class="form-control" placeholder="Buscar Revistas" aria-label="Example text with two button addons">
-          <button class="btn btn-outline-secondary" type="button">Buscar</button>
+          <input type="text" class="form-control" placeholder="Buscar Revistas" formControlName="busqueda">
+          <button class="btn btn-outline-secondary" type="submit">Buscar</button>
         </div>
       </form>
     <div class="nav-item dropdown">

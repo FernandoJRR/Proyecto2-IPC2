@@ -30,6 +30,7 @@ import { MatCardModule } from "@angular/material/card";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatIconModule } from "@angular/material/icon";
 import { MatTableModule } from "@angular/material/table";
+import { MatRadioModule } from "@angular/material/radio";
 import { DialogEditarHobbiesComponent } from './dialogs/pagina-perfil-usuario/dialog-editar-hobbies/dialog-editar-hobbies.component';
 import { DialogEditarGeneroComponent } from './dialogs/pagina-perfil-usuario/dialog-editar-genero/dialog-editar-genero.component';
 import { DialogEditarEtiquetasComponent } from './dialogs/pagina-perfil-usuario/dialog-editar-etiquetas/dialog-editar-etiquetas.component';
@@ -46,6 +47,16 @@ import { DialogModificarNumeroComponent } from './dialogs/informacion-numero-rev
 import { DialogModificarEstadoMeGustaComponent } from './dialogs/informacion-numero-revista/dialog-modificar-numero/dialog-modificar-estado-me-gusta/dialog-modificar-estado-me-gusta.component';
 import { DialogModificarEstadoComentariosComponent } from './dialogs/informacion-numero-revista/dialog-modificar-numero/dialog-modificar-estado-comentarios/dialog-modificar-estado-comentarios.component';
 import { DialogVerComentariosComponent } from './dialogs/informacion-numero-revista/dialog-ver-comentarios/dialog-ver-comentarios.component';
+import { DialogSuscribirseRevistaComponent } from './dialogs/informacion-revista/dialog-suscribirse-revista/dialog-suscribirse-revista.component';
+import { PaginaSuscripcionesComponent } from './pagina-suscripciones/pagina-suscripciones.component';
+import { DialogPagarSuscripcionComponent } from './dialogs/informacion-revista/dialog-pagar-suscripcion/dialog-pagar-suscripcion.component';
+import { DialogComentarComponent } from './dialogs/informacion-revista/dialog-comentar/dialog-comentar.component';
+import { PaginaResultadosComponent } from './pagina-resultados/pagina-resultados.component';
+import { PaginaAdministradorComponent } from './pagina-administrador/pagina-administrador.component';
+import { PaginaHomeAdministradorComponent } from './pagina-home-administrador/pagina-home-administrador.component';
+import { DialogAgregarCategoriaComponent } from './dialogs/pagina-home-administrador/dialog-agregar-categoria/dialog-agregar-categoria.component';
+import { DialogAgregarEtiquetaComponent } from './dialogs/pagina-home-administrador/dialog-agregar-etiqueta/dialog-agregar-etiqueta.component';
+import { DialogAgregarAdministradorComponent } from './dialogs/pagina-home-administrador/dialog-agregar-administrador/dialog-agregar-administrador.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +87,16 @@ import { DialogVerComentariosComponent } from './dialogs/informacion-numero-revi
     DialogModificarEstadoMeGustaComponent,
     DialogModificarEstadoComentariosComponent,
     DialogVerComentariosComponent,
+    DialogSuscribirseRevistaComponent,
+    PaginaSuscripcionesComponent,
+    DialogPagarSuscripcionComponent,
+    DialogComentarComponent,
+    PaginaResultadosComponent,
+    PaginaAdministradorComponent,
+    PaginaHomeAdministradorComponent,
+    DialogAgregarCategoriaComponent,
+    DialogAgregarEtiquetaComponent,
+    DialogAgregarAdministradorComponent,
   ],
   imports: [
     BrowserModule,
@@ -98,6 +119,7 @@ import { DialogVerComentariosComponent } from './dialogs/informacion-numero-revi
     MatExpansionModule,
     MatIconModule,
     MatTableModule,
+    MatRadioModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

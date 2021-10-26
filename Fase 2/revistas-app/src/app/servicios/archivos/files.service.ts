@@ -35,4 +35,9 @@ export class FilesService {
 
     return this.httpClient.post<boolean>(this.API_URL + "/upload-pdf?numero="+numeroRevista, formData);
   }
+  
+  public obtenerPDF(numeroRevista: number, marca: number): string {
+    let urlPDF = this.API_URL+"/mostrar-pdf?numeroRevista="+numeroRevista+"&marca="+marca;
+    return urlPDF;
+  }
 }

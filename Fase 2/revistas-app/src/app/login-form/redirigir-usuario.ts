@@ -8,6 +8,8 @@ export function RedirigirUsuario(username: string, loginServicio: LoginServicio,
           router.navigate(['/lector']);
         } else if (tipo=="EDITOR") {
           router.navigate(['/editor']);
+        } else if (tipo=="ADMINISTRADOR") {
+          router.navigate(['/administrador'])
         }
     },(error: any) => {
         console.log("error");      

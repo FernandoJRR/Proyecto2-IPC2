@@ -40,4 +40,10 @@ public class ControlEtiquetas {
         }
         return etiquetas;
     }
+    
+    public static void agregarEtiqueta(String nombreEtiqueta) throws SQLException {
+        PreparedStatement agregar = ConexionDB.getConnection().prepareStatement("INSERT INTO etiqueta(nombre) VALUES(?)");
+        agregar.setString(1, nombreEtiqueta);
+        agregar.executeUpdate();
+    }
 }

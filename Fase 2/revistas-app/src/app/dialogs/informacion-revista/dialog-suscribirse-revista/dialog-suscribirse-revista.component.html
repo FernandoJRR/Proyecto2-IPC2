@@ -1,0 +1,32 @@
+<h1 mat-dialog-title>Suscribirse a Revista</h1>
+<div mat-dialog-content>
+  <p>Ingresa los datos del numero</p>
+  <form [formGroup]="formSuscripcion">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Fecha de Suscripcion</mat-label>
+      <input matInput [min]="this.fechaPublicacionRevista" [matDatepicker]="picker" formControlName="fechaSuscripcion">
+      <mat-hint>La fecha de suscripcion a la revista debe ser despues de la fecha de publicacion de esta.</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="fill" class="full-width mt-5 mb-2">
+      <mat-label>Cantidad de Tiempo Pagado</mat-label>
+      <input matInput type="number" placeholder="Tiempo Pagado" formControlName="cantidadTiempoPagado" min="1">
+      <mat-error *ngIf="formSuscripcion.controls.cantidadTiempoPagado.invalid">El tiempo minimo es 1</mat-error>
+    </mat-form-field>
+    <mat-radio-group formControlName="tipoTiempo">
+      <mat-radio-button value="MENSUAL" style="margin-right:2%;">Mes/es</mat-radio-button>
+      <mat-radio-button value="ANUAL">Año/s</mat-radio-button>
+    </mat-radio-group>
+
+    <mat-error *ngIf="!formSuscripcion.pristine && (formSuscripcion.invalid || validez==false)">
+      Hay campos invalidos o vacios
+    </mat-error>
+
+    <div mat-dialog-actions>
+      <button mat-button (click)="cerrar()">Close</button>
+      <button mat-raised-button color="primary" (click)="guardar()">Guardar</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,5 @@
+<h3>Resultados</h3>
+
+<mat-accordion>
+  <app-informacion-revista *ngFor="let revista of this.resultados" [revista]="revista" [tipoUsuario]="&quot;LECTOR&quot;" (cambioSuscripcionesEvent)="cambioSuscripciones($event)"></app-informacion-revista>
+</mat-accordion>

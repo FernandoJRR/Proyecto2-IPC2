@@ -123,6 +123,26 @@ public class ControlRevistas {
         cambiarEstado.executeUpdate();
     }
     
+    public static boolean cambiarMeGusta(Integer numeroRevista, String username) throws SQLException {
+        PreparedStatement obtenerMeGusta = ConexionDB.getConnection().prepareStatement("SELECT * FROM me_gusta WHERE numero_revista=? AND usuario=?");
+        obtenerMeGusta.setInt(1, numeroRevista);
+        obtenerMeGusta.setString(2, username);
+        ResultSet meGusta = obtenerMeGusta.executeQuery();
+        if (meGusta.next()) {
+            PreparedStatement borrarMeGusta = ConexionDB.getConnection().prepareStatement("DELETE FROM me_gusta WHERE numero_revista=? AND usuario=?");
+            borrarMeGusta.setInt(1, numeroRevista);
+            borrarMeGusta.setString(2, username);
+            borrarMeGusta.executeUpdate();
+            return false;
+        } else {
+            PreparedStatement agregarMeGusta = ConexionDB.getConnection().prepareStatement("INSERT INTO me_gusta(numero_revista,usuario) VALUES(?,?)");
+            agregarMeGusta.setInt(1, numeroRevista);
+            agregarMeGusta.setString(2, username);
+            agregarMeGusta.executeUpdate();
+            return true;
+        }
+    }
+    
     public static void cambiarEstadoComentarios(Integer idRevista, Integer numeroRevista, String estado) throws SQLException {
         PreparedStatement cambiarEstado = ConexionDB.getConnection().prepareStatement("UPDATE numero_revista SET restriccion_comentarios = ? WHERE numero = ? AND revista = ?");
         cambiarEstado.setString(1, estado);
@@ -197,9 +217,8 @@ public class ControlRevistas {
     }
     
     public static Integer obtenerMeGusta(Integer idRevista, Integer numeroRevista) throws SQLException { 
-        PreparedStatement obtenerCantidadMeGusta = ConexionDB.getConnection().prepareStatement("SELECT COUNT(*) AS cantidad FROM comentario WHERE revista=? AND numero_revista=?");
-        obtenerCantidadMeGusta.setInt(1, idRevista);
-        obtenerCantidadMeGusta.setInt(2, numeroRevista);
+        PreparedStatement obtenerCantidadMeGusta = ConexionDB.getConnection().prepareStatement("SELECT COUNT(*) AS cantidad FROM me_gusta WHERE numero_revista=?");
+        obtenerCantidadMeGusta.setInt(1, numeroRevista);
         ResultSet cantidad = obtenerCantidadMeGusta.executeQuery();
         if (cantidad.next()) {
             return cantidad.getInt("cantidad");
@@ -291,5 +310,80 @@ public class ControlRevistas {
             return revistas;
         }
 
+    }
+    
+    public static ArrayList<Revista> obtenerRevistasSuscritas(String username) throws SQLException {
+        ArrayList<Revista> revistas = new ArrayList<>();
+        
+        PreparedStatement obtenerRevistas = ConexionDB.getConnection().prepareStatement("SELECT DISTINCT * FROM revista WHERE id IN( "+
+                                                                                        "SELECT revista FROM suscripcion WHERE usuario = ?)");
+        obtenerRevistas.setString(1, username);
+        ResultSet revistasObtenidas = obtenerRevistas.executeQuery();
+        while (revistasObtenidas.next()) {
+            Revista revistaActual =
+            new Revista(
+                revistasObtenidas.getInt("id"), 
+                revistasObtenidas.getString("nombre"), 
+                revistasObtenidas.getString("descripcion"), 
+                revistasObtenidas.getDate("fecha_publicacion"), 
+                revistasObtenidas.getString("categoria"), 
+                ControlEtiquetas.obtenerEtiquetas(revistasObtenidas.getInt("id")), 
+                revistasObtenidas.getString("estado_suscripciones")
+            );
+            
+            revistas.add(revistaActual);
+        }
+        return revistas;
+    }
+    
+    public static void agregarComentario(Comentario comentario) throws SQLException {
+        PreparedStatement agregarComentario = ConexionDB.getConnection().prepareStatement("INSERT INTO comentario(usuario,numero_revista,comentario,revista) "+
+                                                                                          "VALUES(?,?,?,?)");   
+        agregarComentario.setString(1, comentario.getUsuario());
+        agregarComentario.setInt(2, comentario.getNumeroRevista());
+        agregarComentario.setString(3, comentario.getComentario());
+        agregarComentario.setInt(4, comentario.getRevista());
+        agregarComentario.executeUpdate();
+    }
+    
+    public static ArrayList<Revista> busqueda(String tipoBusqueda, String busqueda, String usuario) throws SQLException {
+        ArrayList<Revista> revistas = new ArrayList<>();
+
+        String filtroSuscripciones = "AND revista.id NOT IN(SELECT revista FROM suscripcion WHERE usuario = ?)";
+
+        String statementCategoria = "SELECT * FROM revista WHERE categoria LIKE ? "+filtroSuscripciones;
+        String statementEtiquetas = "SELECT DISTINCT revista.* FROM etiqueta_revista JOIN revista ON etiqueta_revista.revista = revista.id WHERE etiqueta_revista.etiqueta LIKE ? "+filtroSuscripciones;
+
+        PreparedStatement realizarBusqueda = ConexionDB.getConnection().prepareStatement(tipoBusqueda.equals("CATEGORIA")? statementCategoria:statementEtiquetas);
+        realizarBusqueda.setString(1, '%'+busqueda+'%');
+        realizarBusqueda.setString(2, usuario);
+        ResultSet revistasObtenidas = realizarBusqueda.executeQuery();
+        while (revistasObtenidas.next()) {
+            Revista revistaActual =
+            new Revista(
+                revistasObtenidas.getInt("id"), 
+                revistasObtenidas.getString("nombre"), 
+                revistasObtenidas.getString("descripcion"), 
+                revistasObtenidas.getDate("fecha_publicacion"), 
+                revistasObtenidas.getString("categoria"), 
+                ControlEtiquetas.obtenerEtiquetas(revistasObtenidas.getInt("id")), 
+                revistasObtenidas.getString("estado_suscripciones")
+            );
+            
+            revistas.add(revistaActual);
+        }
+        return revistas;
+    }
+    
+    public static String obtenerPathPDF(Integer numeroRevista) throws SQLException {
+        PreparedStatement obtenerPathPDF = ConexionDB.getConnection().prepareStatement("SELECT PDF FROM numero_revista WHERE numero = ?");
+        obtenerPathPDF.setInt(1, numeroRevista);
+        ResultSet path = obtenerPathPDF.executeQuery();
+        if (path.next()) {
+            return path.getString("PDF");
+        } else {
+            throw new SQLException();
+        }
+        
     }
 }

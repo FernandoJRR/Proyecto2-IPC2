@@ -59,6 +59,10 @@ export class LoginFormComponent implements OnInit {
           localStorage.setItem('tipoUsuario', "EDITOR");
           this.loginForm.reset();
           this.router.navigate(['/editor']);
+        } else if (tipo=="ADMINISTRADOR") {
+          localStorage.setItem('tipoUsuario', "ADMINISTRADOR");
+          this.loginForm.reset();
+          this.router.navigate(['/administrador']);
         }
       },(error: any) => {
         console.log("error");      

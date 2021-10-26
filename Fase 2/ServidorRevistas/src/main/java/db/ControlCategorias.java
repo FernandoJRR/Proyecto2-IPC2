@@ -28,4 +28,10 @@ public class ControlCategorias {
 		}
 		return categorias;
 	}
+
+    public static void agregarCategoria(String nombreCategoria) throws SQLException {
+        PreparedStatement agregar = ConexionDB.getConnection().prepareStatement("INSERT INTO categoria(nombre) VALUES(?)");
+        agregar.setString(1, nombreCategoria);
+        agregar.executeUpdate();
+    }
 }

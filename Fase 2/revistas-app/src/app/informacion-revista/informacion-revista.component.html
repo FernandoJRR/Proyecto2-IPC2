@@ -7,15 +7,41 @@
       {{revista.descripcion}}
     </mat-panel-description>
   </mat-expansion-panel-header>
-    <div>
-      <h5>Categoria/s:</h5>
-      <p *ngFor="let etiqueta of revista.etiquetas">{{etiqueta.nombre}}</p>
+  <h5 *ngIf="tipoUsuario==&quot;LECTOR&quot;" style="margin-bottom:2%;">Previsualizacion de Datos</h5>
+  <div>
+    <h5>Categoria:</h5>
+    <p>{{revista.categoria}}</p>
+  </div>
+  <div>
+    <h5>Etiqueta/s:</h5>
+    <p *ngFor="let etiqueta of revista.etiquetas">{{etiqueta.nombre}}</p>
+  </div>
+
+  <!-- Seccion para solo Lectores -->
+  <div *ngIf="tipoUsuario == &quot;LECTOR&quot; && revista.estadoSuscripciones==&quot;PERMITIDAS&quot;">
+    <div *ngIf="tarjetaAbierta">
+      <button mat-stroked-button color="primary" style="margin-right:1%;" (click)="suscribirse()">Suscribirse</button>
     </div>
+  </div>
+  
+  <!-- Seccion para suscriptores -->
+  <div *ngIf="tipoUsuario == &quot;SUSCRIPTOR&quot;">
+    <div *ngIf="tarjetaAbierta">
+      <button mat-stroked-button color="primary" style="margin-right:1%;" (click)="pagarSuscripcion()">Pagar Suscripcion</button>
+    </div>
+    <div class="mt-3 mb-3" *ngFor="let numero of numerosRevista">
+      <app-informacion-numero-revista [numeroRevista]="numero" [tipoUsuario]="&quot;SUSCRIPTOR&quot;"></app-informacion-numero-revista>
+    </div>
+  </div>
+
+  <!-- Seccion para solo Editores -->
+  <div *ngIf="tipoUsuario == &quot;EDITOR&quot;">
     <div *ngIf="tarjetaAbierta">
       <button mat-stroked-button color="primary" style="margin-right:1%;" (click)="modificarRevista()">Modificar Revista</button>
       <button mat-stroked-button color="accent" (click)="publicarNuevoNumero()">Publicar Nuevo Numero</button>
     </div>
-    <div class="mt-3 mb-3" *ngFor="let numero of numerosPublicados">
-      <app-informacion-numero-revista [numeroRevista]="numero"></app-informacion-numero-revista>
+    <div class="mt-3 mb-3" *ngFor="let numero of numerosRevista">
+      <app-informacion-numero-revista [numeroRevista]="numero" [tipoUsuario]="&quot;EDITOR&quot;"></app-informacion-numero-revista>
     </div>
+  </div>
 </mat-expansion-panel>

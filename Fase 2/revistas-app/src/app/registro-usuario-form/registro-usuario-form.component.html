@@ -35,7 +35,7 @@
             
             <div class="mb-3">
                 <label for="genero">Genero</label>
-                <select name="genero" class="form-select" id="genero" formControlName="genero">control
+                <select name="genero" class="form-select" id="genero" formControlName="genero">
                     <option [ngValue]="null" selected disabled>Seleccione una opcion...</option>
                     <option *ngFor="let option of generoEnum | keyvalue" [ngValue]="option.key">{{option.value}}</option>
                 </select>

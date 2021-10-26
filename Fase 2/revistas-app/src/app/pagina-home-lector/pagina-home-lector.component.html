@@ -1,1 +1,5 @@
-<p>pagina-home works!</p>
+<h3>Recomendaciones</h3>
+
+<mat-accordion>
+  <app-informacion-revista *ngFor="let revista of revistasRecomendadas" [revista]="revista" [tipoUsuario]="&quot;LECTOR&quot;" (cambioSuscripcionesEvent)="cambioSuscripciones($event)"></app-informacion-revista>
+</mat-accordion>

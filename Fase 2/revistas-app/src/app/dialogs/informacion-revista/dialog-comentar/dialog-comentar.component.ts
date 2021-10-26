@@ -1,0 +1,44 @@
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NumeroRevista } from 'src/app/objetos/editor/NumeroRevista';
+import { Comentario } from 'src/app/objetos/revista/Comentario';
+
+@Component({
+  selector: 'app-dialog-comentar',
+  templateUrl: './dialog-comentar.component.html',
+  styleUrls: ['./dialog-comentar.component.css']
+})
+export class DialogComentarComponent implements OnInit {
+
+  validez: boolean = true;
+  formComentario: FormGroup;
+
+  constructor(
+    public dialogRef: MatDialogRef<DialogComentarComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: {numeroRevista: NumeroRevista},
+    formBuilder: FormBuilder) {
+      
+      this.formComentario = formBuilder.group({
+        comentario: ["", [Validators.required]],
+      });
+   }
+
+  ngOnInit(): void {
+  }
+  
+  guardar(): void {
+      this.dialogRef.close(
+        new Comentario(
+          0,
+          localStorage.getItem("username")!,
+          this.data.numeroRevista.idRevista,
+          this.data.numeroRevista.numero!,
+          this.formComentario.controls.comentario.value
+        ));
+  }
+  
+  cerrar(): void {
+    this.dialogRef.close();
+  }
+}

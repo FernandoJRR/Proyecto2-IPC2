@@ -1,0 +1,5 @@
+<h3>Revistas Suscritas</h3>
+
+<mat-accordion>
+  <app-informacion-revista *ngFor="let revista of revistasSuscritas" [revista]="revista" [tipoUsuario]="&quot;SUSCRIPTOR&quot;"></app-informacion-revista>
+</mat-accordion>
