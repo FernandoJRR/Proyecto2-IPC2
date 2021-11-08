@@ -113,8 +113,14 @@ CREATE TABLE comentario(
 	revista INT NOT NULL,
 	numero_revista INT NOT NULL,
 	comentario TEXT NOT NULL,
+	fecha_publicacion DATE NOT NULL,
 	CONSTRAINT FK_usuario_comentario FOREIGN KEY (usuario) REFERENCES usuario(username),
 	CONSTRAINT FK_numero_revista_comentario FOREIGN KEY (numero_revista) REFERENCES numero_revista(numero)
+);
+
+CREATE TABLE costo_hosting(
+	fecha_inicio DATE NOT NULL PRIMARY KEY,
+	porcentaje_costo FLOAT NOT NULL
 );
 
 INSERT INTO usuario(username,`password`,estado,tipo) VALUES ('admin','5994471ABB01112AFCC18159F6CC74B4F511B99806DA59B3CAF5A9C173CACFC5','ACTIVO','ADMINISTRADOR');
