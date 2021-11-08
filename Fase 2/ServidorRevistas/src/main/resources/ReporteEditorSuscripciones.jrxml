@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteEditorSuscripciones" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="270a6510-3414-4656-9342-36f6b9e7f696">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="RevistasAdapter"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="FechaDesde" class="java.util.Date">
+		<defaultValueExpression><![CDATA[null]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FechaHasta" class="java.util.Date">
+		<defaultValueExpression><![CDATA[null]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Revista" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Editor" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[SELECT revista.id,nombre, COUNT(suscripcion.revista) AS cantidad_suscripciones FROM revista 
+INNER JOIN suscripcion ON revista.id = suscripcion.revista
+WHERE (revista.fecha_publicacion >= $P{FechaDesde} OR $P{FechaDesde} IS NULL)
+AND (revista.fecha_publicacion <=  $P{FechaHasta} OR $P{FechaHasta} IS NULL)
+AND(revista.id = $P{Revista} OR $P{Revista} = 0)
+AND revista.editor = $P{Editor}
+GROUP BY suscripcion.revista
+ORDER BY cantidad_suscripciones DESC]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id"/>
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="revista"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nombre"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombre"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="revista"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cantidad_suscripciones" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="cantidad_suscripciones"/>
+		<property name="com.jaspersoft.studio.field.label" value="cantidad_suscripciones"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<image>
+				<reportElement x="275" y="0" width="300" height="64" uuid="88796d59-cd8c-43c1-853f-dd6acfa88258"/>
+				<imageExpression><![CDATA["leaf_banner_violet.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement style="Title" x="0" y="0" width="263" height="70" uuid="bcf29663-c4b8-483e-a197-e5f6920fd2a2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Reporte de Suscripciones]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<detail>
+		<band height="331" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="555" height="1" uuid="e333df44-9887-45d8-a569-1c4607976a27"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="40" width="130" height="30" forecolor="#990099" uuid="f9440e93-37bc-41af-9537-baac46f18a46">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5c1b2609-15fb-4626-a64e-a7e8aaf43444"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="25"/>
+				</textElement>
+				<text><![CDATA[ID Revista]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="80" width="130" height="30" forecolor="#990099" uuid="666ce16b-573a-4792-ab00-f752414e2813">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5c1b2609-15fb-4626-a64e-a7e8aaf43444"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="25"/>
+				</textElement>
+				<text><![CDATA[Revista]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Detail" x="140" y="40" width="415" height="30" forecolor="#990099" uuid="1a7bd05b-74a4-4816-b743-ffa21c9433c2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5c1b2609-15fb-4626-a64e-a7e8aaf43444"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="25"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="140" y="80" width="414" height="30" forecolor="#990099" uuid="94667647-4e2a-4d03-9057-c5ba244df520">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5c1b2609-15fb-4626-a64e-a7e8aaf43444"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="25"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="1" y="1" width="554" height="30" forecolor="#990099" uuid="92b4ac92-259e-4ced-99b9-e97047120d32">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5c1b2609-15fb-4626-a64e-a7e8aaf43444"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="21"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{FechaDesde}==null || $P{FechaHasta} == null?  "Todas las Suscripciones" : new java.sql.Date($P{FechaDesde}.getTime()).toLocalDate()+"  "+new java.sql.Date($P{FechaHasta}.getTime()).toLocalDate()]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="0" y="200" width="552" height="90" uuid="45eac2b5-4734-4c8d-92b0-1928387c1302"/>
+				<subreportParameter name="id">
+					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="FechaEnd">
+					<subreportParameterExpression><![CDATA[$P{FechaHasta}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="FechaFrom">
+					<subreportParameterExpression><![CDATA[$P{FechaDesde}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["SubreporteEditorSuscripciones.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement style="Column header" x="1" y="120" width="209" height="60" forecolor="#990099" uuid="99089792-4679-4fa6-a893-9e5e7f719d4e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5c1b2609-15fb-4626-a64e-a7e8aaf43444"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="25"/>
+				</textElement>
+				<text><![CDATA[Cantidad de Suscripciones]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Detail" x="220" y="120" width="335" height="30" forecolor="#990099" uuid="f0c8f740-a47a-4746-b581-83cdb32cc243">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5c1b2609-15fb-4626-a64e-a7e8aaf43444"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="25"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidad_suscripciones}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="433509ef-2a34-4797-9cd1-684511ae022d"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="27402784-6be1-4e60-b9c7-c3664ea17454"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="e16da2cc-f2dd-4b0a-a299-981148326ee6"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

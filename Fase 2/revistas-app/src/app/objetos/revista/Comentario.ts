@@ -4,13 +4,15 @@ export class Comentario {
     private _revista: number;
     private _numeroRevista: number;
     private _comentario: string;
+    private _fechaPublicacion: Date;
     
-    constructor(id: number, usuario: string, revista: number, numeroRevista: number, comentario: string) {
+    constructor(id: number, usuario: string, revista: number, numeroRevista: number, comentario: string, fechaPublicacion: Date) {
         this._id = id;
         this._usuario = usuario;
         this._revista = revista;
         this._numeroRevista = numeroRevista;
         this._comentario = comentario;
+        this._fechaPublicacion = fechaPublicacion;
     }
     
     public get id(): number{
@@ -28,4 +30,8 @@ export class Comentario {
     public get comentario(): string{
         return this._comentario
     }
+    public get fechaPublicacion(): Date {
+        return this._fechaPublicacion
+    }
+    
 }

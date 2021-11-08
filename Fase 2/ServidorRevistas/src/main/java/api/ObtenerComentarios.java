@@ -50,8 +50,6 @@ public class ObtenerComentarios extends HttpServlet {
 			
 			String comentariosJSON = gson.toJson(comentariosNumero);
 			
-			System.out.println(comentariosJSON);
-			
 			PrintWriter out = response.getWriter();
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");

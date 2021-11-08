@@ -21,7 +21,7 @@
 
   <mat-card-actions *ngIf="tipoUsuario==&quot;SUSCRIPTOR&quot;">
     <button mat-icon-button (click)="cambiarMeGusta()" *ngIf="numeroRevista.restriccionMeGusta==&quot;PERMITIDO&quot;"><mat-icon style="margin-left:1%;">favorite</mat-icon></button>
-    <mat-label style="margin-right:1%;">{{meGustaNumero}}</mat-label>
+    <mat-label *ngIf="numeroRevista.restriccionMeGusta==&quot;PERMITIDO&quot;" style="margin-right:1%;">{{meGustaNumero}}</mat-label>
     <button mat-stroked-button color="accent" (click)="comentar()" *ngIf="numeroRevista.restriccionComentarios==&quot;PERMITIDO&quot;">Comentar</button>
   </mat-card-actions>
 </mat-card>

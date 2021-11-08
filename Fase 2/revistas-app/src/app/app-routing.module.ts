@@ -14,6 +14,7 @@ import { PaginaResultadosComponent } from './pagina-resultados/pagina-resultados
 import { PaginaSuscripcionesComponent } from './pagina-suscripciones/pagina-suscripciones.component';
 import { RegistroEditorFormComponent } from './registro-editor-form/registro-editor-form.component';
 import { RegistroFormComponent } from './registro-usuario-form/registro-usuario-form.component';
+import { ReportesAdministradorComponent } from './reportes-administrador/reportes-administrador.component';
 import { ReportesEditorComponent } from './reportes-editor/reportes-editor.component';
 
 const routes: Routes = [
@@ -43,6 +44,7 @@ const routes: Routes = [
     children: [
       {path: '', redirectTo: 'home', pathMatch: 'full'},
       {path: 'home', component: PaginaHomeAdministradorComponent},
+      {path: 'reportes', component: ReportesAdministradorComponent},
     ]
   },
 ];

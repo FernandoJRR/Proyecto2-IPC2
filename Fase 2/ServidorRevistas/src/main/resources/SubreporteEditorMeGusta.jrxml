@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubreporteEditorMeGusta" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a3fca770-a563-4f22-b2e0-6b7541342070">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="RevistasAdapter"/>
+	<parameter name="id" class="java.lang.Integer"/>
+	<parameter name="FechaDesde" class="java.util.Date">
+		<defaultValueExpression><![CDATA[null]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FechaHasta" class="java.util.Date">
+		<defaultValueExpression><![CDATA[null]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[SELECT numero,nombre,COUNT(numero) AS cantidad_me_gusta FROM numero_revista 
+INNER JOIN me_gusta ON numero_revista.numero = me_gusta.numero_revista
+WHERE numero_revista.revista = $P{id}
+AND (numero_revista.fecha_publicacion  >= $P{FechaDesde} OR $P{FechaDesde} IS NULL)
+AND (numero_revista.fecha_publicacion <=  $P{FechaHasta} OR $P{FechaHasta} IS NULL)
+GROUP BY numero]]>
+	</queryString>
+	<field name="numero" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="numero"/>
+		<property name="com.jaspersoft.studio.field.label" value="numero"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="numero_revista"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nombre"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombre"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="numero_revista"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cantidad_me_gusta" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="cantidad_me_gusta"/>
+		<property name="com.jaspersoft.studio.field.label" value="cantidad_me_gusta"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="192" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="180" height="50" forecolor="#666666" uuid="31b1d7f8-eb31-48c2-9e81-2924874c7397">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5c1b2609-15fb-4626-a64e-a7e8aaf43444"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre del Numero de Revista]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="180" y="10" width="370" height="30" forecolor="#666666" uuid="84736fb3-e99f-4554-b8ea-8d8db08d5191"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="50" width="180" height="60" forecolor="#666666" uuid="9f05f3d1-c127-41f4-9f04-f2e2fab69222">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5c1b2609-15fb-4626-a64e-a7e8aaf43444"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="19" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad de Me Gusta]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="180" y="60" width="370" height="30" forecolor="#666666" uuid="97dc786b-53bc-4994-bc72-d31a14182bc2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="22"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidad_me_gusta}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="0" y="120" width="550" height="60" uuid="8c358835-3152-427d-b66a-330aef4d3b08"/>
+				<subreportParameter name="numero">
+					<subreportParameterExpression><![CDATA[$F{numero}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["SubSubreporteEditorMeGusta.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

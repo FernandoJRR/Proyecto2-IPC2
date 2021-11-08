@@ -51,8 +51,6 @@ public class Buscar extends HttpServlet {
 			
 			String revistasJSON = gson.toJson(revistas);
 			
-			System.out.println(revistasJSON);
-			
 			PrintWriter out = response.getWriter();
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");

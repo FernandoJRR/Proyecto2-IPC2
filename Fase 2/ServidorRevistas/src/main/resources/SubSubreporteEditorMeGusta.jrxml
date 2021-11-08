@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubSubreporteEditorMeGusta" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e94b3e0a-3227-44a0-b610-4be942b66760">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="RevistasAdapter"/>
+	<parameter name="numero" class="java.lang.Integer"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT * FROM me_gusta
+WHERE me_gusta.numero_revista = $P{numero}]]>
+	</queryString>
+	<field name="usuario" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="usuario"/>
+		<property name="com.jaspersoft.studio.field.label" value="usuario"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="me_gusta"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numero_revista" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="numero_revista"/>
+		<property name="com.jaspersoft.studio.field.label" value="numero_revista"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="me_gusta"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="56" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="120" height="30" forecolor="#666666" uuid="51476181-878b-4c8e-88d0-19f459ba9200">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5c1b2609-15fb-4626-a64e-a7e8aaf43444"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Usuario]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="130" y="10" width="210" height="30" forecolor="#666666" uuid="f3ae72ef-9dea-47a6-aac4-a50f842793fd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{usuario}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="0" width="550" height="1" uuid="afd49d28-90f5-410b-a42c-d6bc6f3b56d4"/>
+			</line>
+			<line>
+				<reportElement x="0" y="55" width="550" height="1" uuid="9c2226aa-601c-46fd-b4fa-dfdb2ca8c5ec"/>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

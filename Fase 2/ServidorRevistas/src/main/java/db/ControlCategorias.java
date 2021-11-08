@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import objetos.Categoria;
-import objetos.Etiqueta;
 
 /**
  *
@@ -26,6 +25,7 @@ public class ControlCategorias {
 		while (categoriasObtenidas.next()) {
 		   categorias.add(new Categoria(categoriasObtenidas.getString("nombre")));
 		}
+		obtencionCategorias.close();
 		return categorias;
 	}
 
@@ -33,5 +33,6 @@ public class ControlCategorias {
         PreparedStatement agregar = ConexionDB.getConnection().prepareStatement("INSERT INTO categoria(nombre) VALUES(?)");
         agregar.setString(1, nombreCategoria);
         agregar.executeUpdate();
+		agregar.close();
     }
 }

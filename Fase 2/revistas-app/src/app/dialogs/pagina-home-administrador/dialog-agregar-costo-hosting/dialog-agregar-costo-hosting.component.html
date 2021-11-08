@@ -1,0 +1,24 @@
+<h1 mat-dialog-title>Agregar Costo Hosting</h1>
+<div mat-dialog-content>
+  <p>Ingresa los datos del costo:</p>
+  <form [formGroup]="formCosto">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Fecha de Inicio del Costo</mat-label>
+      <input matInput [min]=0 [max]=100 [matDatepicker]="picker" formControlName="fechaInicio">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Porcentaje de las Suscripciones Obtenido</mat-label>
+      <input matInput type="number" placeholder="Porcentaje" formControlName="porcentaje"/>
+    </mat-form-field>
+    <mat-error *ngIf="!formCosto.pristine && (formCosto.invalid || validez==false)">
+        Hay campos vacios o invalidos
+    </mat-error>
+
+    <div mat-dialog-actions>
+      <button mat-button (click)="cerrar()">Close</button>
+      <button mat-raised-button color="primary" (click)="guardar()">Guardar</button>
+    </div>
+  </form>
+</div>

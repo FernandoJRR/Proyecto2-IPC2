@@ -52,8 +52,6 @@ public class ObtenerCategorias extends HttpServlet {
 		
 		String JsonCategorias = gson.toJson(listaCategorias);
 		
-		System.out.println(JsonCategorias);
-		
 		PrintWriter out = response.getWriter();
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");

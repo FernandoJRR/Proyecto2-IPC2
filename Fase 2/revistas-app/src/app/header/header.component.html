@@ -13,7 +13,10 @@
           <a class="nav-link" routerLink="suscripciones">Suscripciones</a>
         </li>
         <li class="nav-item" *ngIf="this.tipoUsuario == &quot;EDITOR&quot;">
-          <a class="nav-link" routerLink="reportes">Reportes</a>
+          <a class="nav-link" routerLink="reportes">Reportes del Editor</a>
+        </li>
+        <li class="nav-item" *ngIf="this.tipoUsuario == &quot;ADMINISTRADOR&quot;">
+          <a class="nav-link" routerLink="reportes">Reportes de Administrador</a>
         </li>
       </ul>
       <form class="d-flex mt-3" [formGroup]="busquedaForm" *ngIf="this.tipoUsuario == &quot;USUARIO&quot;" (ngSubmit)="buscar()">
@@ -32,8 +35,8 @@
         {{usuario}}
       </a>
       <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <li><a class="dropdown-item" routerLink="perfil">Ver Perfil</a></li>
-        <li><hr class="dropdown-divider"></li>
+        <li *ngIf="this.tipoUsuario != &quot;ADMINISTRADOR&quot;"><a class="dropdown-item" routerLink="perfil">Ver Perfil</a></li>
+        <li *ngIf="this.tipoUsuario != &quot;ADMINISTRADOR&quot;"><hr class="dropdown-divider"></li>
         <li><a class="dropdown-item" (click)="cerrarSesion()">Cerrar Sesion</a></li>
       </ul>
     </div>

@@ -49,8 +49,6 @@ public class ObtenerNumerosRevistas extends HttpServlet {
 			
 			String numerosJSON = gson.toJson(numerosRevista);
 			
-			System.out.println(numerosJSON);
-			
 			PrintWriter out = response.getWriter();
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");

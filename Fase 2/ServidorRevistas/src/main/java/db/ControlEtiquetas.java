@@ -25,6 +25,7 @@ public class ControlEtiquetas {
         while (etiquetasObtenidas.next()) {
             etiquetas.add(new Etiqueta(etiquetasObtenidas.getString("nombre")));
         }
+        obtencionEtiquetas.close();
         return etiquetas;
     }
     
@@ -38,6 +39,7 @@ public class ControlEtiquetas {
         while (etiquetasObtenidas.next()) {
             etiquetas.add(new Etiqueta(etiquetasObtenidas.getString("etiqueta")));
         }
+        obtencionEtiquetas.close();
         return etiquetas;
     }
     
@@ -45,5 +47,6 @@ public class ControlEtiquetas {
         PreparedStatement agregar = ConexionDB.getConnection().prepareStatement("INSERT INTO etiqueta(nombre) VALUES(?)");
         agregar.setString(1, nombreEtiqueta);
         agregar.executeUpdate();
+        agregar.close();
     }
 }

@@ -7,13 +7,14 @@ package db;
 
 import java.sql.Statement;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import objetos.Comentario;
+import objetos.CostoHosting;
 import objetos.Etiqueta;
 import objetos.NumeroRevista;
 import objetos.PrecioSuscripcion;
@@ -70,6 +71,7 @@ public class ControlRevistas {
             throw new SQLException();
         } finally {
             connection.setAutoCommit(true);
+            connection.close();
         }
 
     }
@@ -93,7 +95,9 @@ public class ControlRevistas {
             revistas.getDate("fecha_publicacion"), revistas.getString("categoria"), etiquetasRevista, revistas.getString("estado_suscripciones"));
             
             revistasPublicadas.add(revistaActual);
+            obtenerEtiquetas.close();
         }
+        obtenerRevistas.close();
         return revistasPublicadas;
     }
     
@@ -105,6 +109,7 @@ public class ControlRevistas {
         while (preciosObtenidos.next()) {
             precioSuscripciones.add(new PrecioSuscripcion(preciosObtenidos.getDate("fecha"), preciosObtenidos.getFloat("precio_suscripcion"), preciosObtenidos.getInt("revista")));
         }
+        obtenerPrecios.close();
         return precioSuscripciones;
     }
     
@@ -113,6 +118,7 @@ public class ControlRevistas {
         cambiarEstado.setString(1, estado);
         cambiarEstado.setInt(2, idRevista);
         cambiarEstado.executeUpdate();
+        cambiarEstado.close();
     }
 
     public static void cambiarEstadoMeGusta(Integer idRevista, Integer numeroRevista, String estado) throws SQLException {
@@ -121,6 +127,7 @@ public class ControlRevistas {
         cambiarEstado.setInt(2, numeroRevista);
         cambiarEstado.setInt(3, idRevista);
         cambiarEstado.executeUpdate();
+        cambiarEstado.close();
     }
     
     public static boolean cambiarMeGusta(Integer numeroRevista, String username) throws SQLException {
@@ -133,12 +140,16 @@ public class ControlRevistas {
             borrarMeGusta.setInt(1, numeroRevista);
             borrarMeGusta.setString(2, username);
             borrarMeGusta.executeUpdate();
+            obtenerMeGusta.close();
+            borrarMeGusta.close();
             return false;
         } else {
             PreparedStatement agregarMeGusta = ConexionDB.getConnection().prepareStatement("INSERT INTO me_gusta(numero_revista,usuario) VALUES(?,?)");
             agregarMeGusta.setInt(1, numeroRevista);
             agregarMeGusta.setString(2, username);
             agregarMeGusta.executeUpdate();
+            obtenerMeGusta.close();
+            agregarMeGusta.close();
             return true;
         }
     }
@@ -149,6 +160,7 @@ public class ControlRevistas {
         cambiarEstado.setInt(2, numeroRevista);
         cambiarEstado.setInt(3, idRevista);
         cambiarEstado.executeUpdate();
+        cambiarEstado.close();
     }
 
     public static Integer publicarNumeroRevista(NumeroRevista numeroRevista) throws SQLException {
@@ -166,8 +178,11 @@ public class ControlRevistas {
         
         ResultSet numero = publicarNumero.getGeneratedKeys();
         if (numero.next()) {
-            return numero.getInt(1);
+            Integer retorno = numero.getInt(1);
+            numero.close();
+            return retorno;
         } else {
+            publicarNumero.close();
             throw new SQLException();
         }
     }
@@ -179,9 +194,11 @@ public class ControlRevistas {
         if (!numero.next()) {
             throw new SQLException();
         }
-        return new NumeroRevista(numero.getInt("numero"), numero.getInt("revista"), numero.getString("nombre"), 
+        NumeroRevista numeroRetorno = new NumeroRevista(numero.getInt("numero"), numero.getInt("revista"), numero.getString("nombre"), 
                                 numero.getString("descripcion"), numero.getDate("fecha_publicacion"), numero.getString("PDF"), 
                                 numero.getFloat("costo_hosting"), numero.getString("restriccion_me_gusta"), numero.toString());
+        obtenerNumeroRevista.close();
+        return numeroRetorno;
     }
     
     public static ArrayList<NumeroRevista> obtenerNumerosPublicados(Integer idRevista) throws SQLException {
@@ -205,6 +222,7 @@ public class ControlRevistas {
             );       
             numerosPublicados.add(numeroActual);
         }
+        obtenerNumeros.close();
         return numerosPublicados;
     }
     
@@ -214,6 +232,7 @@ public class ControlRevistas {
         guardarPathRevistas.setInt(2, numeroRevista);
         guardarPathRevistas.setInt(3, idRevista);
         guardarPathRevistas.executeUpdate();
+        guardarPathRevistas.close();
     }
     
     public static Integer obtenerMeGusta(Integer idRevista, Integer numeroRevista) throws SQLException { 
@@ -221,11 +240,13 @@ public class ControlRevistas {
         obtenerCantidadMeGusta.setInt(1, numeroRevista);
         ResultSet cantidad = obtenerCantidadMeGusta.executeQuery();
         if (cantidad.next()) {
-            return cantidad.getInt("cantidad");
+            Integer cantidadRetorno = cantidad.getInt("cantidad");
+            obtenerCantidadMeGusta.close();
+            return cantidadRetorno;
         } else {
+            obtenerCantidadMeGusta.close();
             throw new SQLException();
         }
-    
     }
     
     public static ArrayList<Comentario> obtenerComentarios(Integer idRevista, Integer numeroRevista) throws SQLException {
@@ -241,11 +262,13 @@ public class ControlRevistas {
                 comentarios.getString("usuario"), 
                 comentarios.getInt("revista"), 
                 comentarios.getInt("numero_revista"), 
-                comentarios.getString("comentario")
+                comentarios.getString("comentario"),
+                comentarios.getDate("fecha_publicacion")
             );
             
             comentariosObtenidos.add(comentarioActual);
         }
+        obtenerComentarios.close();
         return comentariosObtenidos;
     }
     
@@ -283,6 +306,7 @@ public class ControlRevistas {
         
         //En caso de que si hayan revistas recomendadas con las etiquetas del usuario se retornaran
         if (revistas.size()>0) {
+            obtenerRevistas.close();
             return revistas;
         } else { //Caso contrario se devolveran revistas no suscritas aunque no tengan las mismas etiquetas que el usuario
             PreparedStatement obtenerRevistasSinEtiquetas = ConexionDB.getConnection().prepareStatement("SELECT * FROM revista WHERE id NOT IN( "+
@@ -306,7 +330,8 @@ public class ControlRevistas {
                 
                 revistas.add(revistaActual);
             }
-            
+            obtenerRevistas.close();
+            obtenerRevistasSinEtiquetas.close();
             return revistas;
         }
 
@@ -333,17 +358,41 @@ public class ControlRevistas {
             
             revistas.add(revistaActual);
         }
+        obtenerRevistas.close();
+        return revistas;
+    }
+    
+    public static ArrayList<Revista> obtenerRevistas() throws SQLException {
+        ArrayList<Revista> revistas = new ArrayList<>();
+
+        PreparedStatement obtenerRevistas = ConexionDB.getConnection().prepareStatement("SELECT * FROM revista");
+        ResultSet revistasObtenidas = obtenerRevistas.executeQuery();
+        
+        while (revistasObtenidas.next()) {
+            revistas.add(
+                new Revista(revistasObtenidas.getInt("id"), 
+                            revistasObtenidas.getString("nombre"), 
+                            revistasObtenidas.getString("descripcion"), 
+                            revistasObtenidas.getDate("fecha_publicacion"), 
+                            revistasObtenidas.getString("categoria"), 
+                            ControlEtiquetas.obtenerEtiquetas(revistasObtenidas.getInt("id")), 
+                            revistasObtenidas.getString("estado_suscripciones"))
+            );
+        }
+        obtenerRevistas.close();
         return revistas;
     }
     
     public static void agregarComentario(Comentario comentario) throws SQLException {
-        PreparedStatement agregarComentario = ConexionDB.getConnection().prepareStatement("INSERT INTO comentario(usuario,numero_revista,comentario,revista) "+
-                                                                                          "VALUES(?,?,?,?)");   
+        PreparedStatement agregarComentario = ConexionDB.getConnection().prepareStatement("INSERT INTO comentario(usuario,numero_revista,comentario,revista,fecha_publicacion) "+
+                                                                                          "VALUES(?,?,?,?,?)");   
         agregarComentario.setString(1, comentario.getUsuario());
         agregarComentario.setInt(2, comentario.getNumeroRevista());
         agregarComentario.setString(3, comentario.getComentario());
         agregarComentario.setInt(4, comentario.getRevista());
+        agregarComentario.setObject(5, comentario.getFechaPublicacion());
         agregarComentario.executeUpdate();
+        agregarComentario.close();
     }
     
     public static ArrayList<Revista> busqueda(String tipoBusqueda, String busqueda, String usuario) throws SQLException {
@@ -372,6 +421,7 @@ public class ControlRevistas {
             
             revistas.add(revistaActual);
         }
+        realizarBusqueda.close();
         return revistas;
     }
     
@@ -380,10 +430,52 @@ public class ControlRevistas {
         obtenerPathPDF.setInt(1, numeroRevista);
         ResultSet path = obtenerPathPDF.executeQuery();
         if (path.next()) {
-            return path.getString("PDF");
+            String pathRetorno = path.getString("PDF");
+            obtenerPathPDF.close();
+            return pathRetorno;
         } else {
+            obtenerPathPDF.close();
             throw new SQLException();
         }
+    }
+    
+    public static void agregarCosto(java.util.Date fechaInicio, Float porcentaje) throws SQLException {
+        PreparedStatement insertarCosto = ConexionDB.getConnection().prepareStatement("INSERT INTO costo_hosting(fecha_inicio, porcentaje_costo) VALUES(?,?)");
+        insertarCosto.setObject(1, fechaInicio);
+        insertarCosto.setFloat(2, porcentaje);
+        insertarCosto.executeUpdate();
+        insertarCosto.close();
+    }
+    
+    public static ArrayList<CostoHosting> obtenerCostosHosting() throws SQLException {
+        ArrayList<CostoHosting> costos = new ArrayList<>();
         
+        PreparedStatement obtenerCostos = ConexionDB.getConnection().prepareStatement("SELECT * FROM costo_hosting ORDER BY fecha_inicio ASC");
+        ResultSet costosObtenidos = obtenerCostos.executeQuery();
+        while (costosObtenidos.next()) {
+            costos.add(
+                new CostoHosting(costosObtenidos.getDate("fecha_inicio"), costosObtenidos.getFloat("porcentaje_costo"))
+            );
+        }
+        obtenerCostos.close();
+        return costos;
+    }
+    
+    public static Revista obtenerRevista(Integer idRevista) throws SQLException {
+        PreparedStatement obtenerRevista = ConexionDB.getConnection().prepareStatement("SELECT * FROM revista WHERE id = ?");
+        obtenerRevista.setInt(1, idRevista);
+        ResultSet revistaObtenida = obtenerRevista.executeQuery();
+        if (revistaObtenida.next()) {
+            return new Revista(
+                revistaObtenida.getInt("id"), 
+                revistaObtenida.getString("editor"), 
+                revistaObtenida.getString("descripcion"), 
+                revistaObtenida.getDate("fecha_publicacion"), 
+                revistaObtenida.getString("categoria"), 
+                null, 
+                revistaObtenida.getString("estado_suscripciones"));
+        } else {
+            return null;
+        }
     }
 }

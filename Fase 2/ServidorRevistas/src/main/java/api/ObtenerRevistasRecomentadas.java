@@ -49,8 +49,6 @@ public class ObtenerRevistasRecomentadas extends HttpServlet {
 			
 			String revistasJSON = gson.toJson(revistasRecomendadas);
 			
-			System.out.println(revistasJSON);
-			
 			PrintWriter out = response.getWriter();
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");

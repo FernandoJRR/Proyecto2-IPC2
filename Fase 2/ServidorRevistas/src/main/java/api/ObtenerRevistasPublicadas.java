@@ -50,8 +50,6 @@ public class ObtenerRevistasPublicadas extends HttpServlet {
 			
 			String JsonRevistas = gson.toJson(revistasPublicadas);
 			
-			System.out.println(JsonRevistas);
-			
 			PrintWriter out = response.getWriter();
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");

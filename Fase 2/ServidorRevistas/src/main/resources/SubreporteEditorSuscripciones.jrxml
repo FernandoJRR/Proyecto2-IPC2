@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubreporteEditorSuscripciones" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2622eb81-b8bd-46e5-a213-f621fd779946">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="RevistasAdapter"/>
+	<parameter name="id" class="java.lang.Integer"/>
+	<parameter name="FechaEnd" class="java.util.Date"/>
+	<parameter name="FechaFrom" class="java.util.Date"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT * FROM suscripcion
+WHERE $P{id} = suscripcion.revista
+AND (suscripcion.fecha_suscripcion >= $P{FechaFrom} OR $P{FechaFrom} IS NULL)
+AND (suscripcion.fecha_suscripcion <=  $P{FechaEnd} OR $P{FechaEnd} IS NULL)]]>
+	</queryString>
+	<field name="usuario" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="usuario"/>
+		<property name="com.jaspersoft.studio.field.label" value="usuario"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="suscripcion"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="revista" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="revista"/>
+		<property name="com.jaspersoft.studio.field.label" value="revista"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="suscripcion"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha_suscripcion" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="fecha_suscripcion"/>
+		<property name="com.jaspersoft.studio.field.label" value="fecha_suscripcion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="suscripcion"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id"/>
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="suscripcion"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="115" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="210" height="30" forecolor="#666666" uuid="181e8460-f6f0-48b3-aa16-4e44117008f1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5c1b2609-15fb-4626-a64e-a7e8aaf43444"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="25" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID Suscripcion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="0" width="180" height="30" forecolor="#666666" uuid="aaa88e43-bc0b-4aa7-bdab-ac167fb26148">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5c1b2609-15fb-4626-a64e-a7e8aaf43444"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="25" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Usuario]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="40" width="80" height="30" forecolor="#666666" uuid="7eb9553a-30ca-46d4-87b1-b7cf80029b1b"/>
+				<textElement>
+					<font size="22"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="40" width="265" height="30" forecolor="#666666" uuid="4d9d6d6b-c8e7-4fe3-88c5-e37bf16a3f57"/>
+				<textElement>
+					<font size="22"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{usuario}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

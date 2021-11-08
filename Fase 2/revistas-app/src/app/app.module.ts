@@ -57,6 +57,11 @@ import { PaginaHomeAdministradorComponent } from './pagina-home-administrador/pa
 import { DialogAgregarCategoriaComponent } from './dialogs/pagina-home-administrador/dialog-agregar-categoria/dialog-agregar-categoria.component';
 import { DialogAgregarEtiquetaComponent } from './dialogs/pagina-home-administrador/dialog-agregar-etiqueta/dialog-agregar-etiqueta.component';
 import { DialogAgregarAdministradorComponent } from './dialogs/pagina-home-administrador/dialog-agregar-administrador/dialog-agregar-administrador.component';
+import { DialogAdministrarCostoHostingComponent } from './dialogs/pagina-home-administrador/dialog-administrar-costo-hosting/dialog-administrar-costo-hosting.component';
+import { DialogAgregarCostoHostingComponent } from './dialogs/pagina-home-administrador/dialog-agregar-costo-hosting/dialog-agregar-costo-hosting.component';
+import { DialogConfiguracionReportesEditorComponent } from './dialogs/pagina-home-administrador/dialog-configuracion-reportes-editor/dialog-configuracion-reportes-editor.component';
+import { ReportesAdministradorComponent } from './reportes-administrador/reportes-administrador.component';
+import { DialogConfiguracionReportesAdministradorComponent } from './dialogs/pagina-home-administrador/dialog-configuracion-reportes-administrador/dialog-configuracion-reportes-administrador.component';
 
 @NgModule({
   declarations: [
@@ -97,6 +102,11 @@ import { DialogAgregarAdministradorComponent } from './dialogs/pagina-home-admin
     DialogAgregarCategoriaComponent,
     DialogAgregarEtiquetaComponent,
     DialogAgregarAdministradorComponent,
+    DialogAdministrarCostoHostingComponent,
+    DialogAgregarCostoHostingComponent,
+    DialogConfiguracionReportesEditorComponent,
+    ReportesAdministradorComponent,
+    DialogConfiguracionReportesAdministradorComponent,
   ],
   imports: [
     BrowserModule,

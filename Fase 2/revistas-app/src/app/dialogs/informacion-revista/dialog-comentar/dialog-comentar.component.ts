@@ -13,6 +13,7 @@ export class DialogComentarComponent implements OnInit {
 
   validez: boolean = true;
   formComentario: FormGroup;
+  fechaPublicacionRevista: Date;
 
   constructor(
     public dialogRef: MatDialogRef<DialogComentarComponent>,
@@ -20,22 +21,30 @@ export class DialogComentarComponent implements OnInit {
     formBuilder: FormBuilder) {
       
       this.formComentario = formBuilder.group({
+        fechaPublicacion: [null, [Validators.required]],
         comentario: ["", [Validators.required]],
       });
+
+      this.fechaPublicacionRevista = new Date(this.data.numeroRevista.fechaPublicacion);
    }
 
   ngOnInit(): void {
   }
   
   guardar(): void {
+    if (this.fechaPublicacionRevista <= this.formComentario.controls.fechaPublicacion.value) {
       this.dialogRef.close(
         new Comentario(
           0,
           localStorage.getItem("username")!,
           this.data.numeroRevista.idRevista,
           this.data.numeroRevista.numero!,
-          this.formComentario.controls.comentario.value
+          this.formComentario.controls.comentario.value,
+          this.formComentario.controls.fechaPublicacion.value
         ));
+    } else {
+      this.validez = false;
+    }
   }
   
   cerrar(): void {

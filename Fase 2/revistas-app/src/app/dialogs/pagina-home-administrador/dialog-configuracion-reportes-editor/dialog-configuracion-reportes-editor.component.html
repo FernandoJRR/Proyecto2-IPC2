@@ -1,0 +1,35 @@
+<h1 mat-dialog-title>Generacion del Reporte</h1>
+<div mat-dialog-content>
+  <p>Ingresa los datos que se piden:</p>
+  <form [formGroup]="formReporte">
+
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>Ingresa un rango de fechas</mat-label>
+      <mat-date-range-input formGroupName="rangoFechas" [rangePicker]="picker">
+        <input matStartDate formControlName="desde" placeholder="Fecha desde">
+        <input matEndDate formControlName="hasta" placeholder="Fecha hasta">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>Revista del Reporte</mat-label>
+      <mat-select formControlName="revista">
+        <mat-option>-- Todas las Revistas --</mat-option>
+        <mat-option [value]="revista.id" *ngFor="let revista of revistas">{{ revista.nombre }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-hint>En caso que no haya resultados con los parametros ingresados se generara una hoja en blanco</mat-hint>
+
+    <mat-error *ngIf="!formReporte.pristine && (formReporte.invalid || validez==false)">
+        El rango de fecha es invalido
+    </mat-error>
+
+    <div mat-dialog-actions>
+      <button mat-button (click)="cerrar()">Close</button>
+      <button mat-raised-button color="primary" (click)="generar()">Generar</button>
+    </div>
+  </form>
+</div>

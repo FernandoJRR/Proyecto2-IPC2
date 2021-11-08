@@ -29,16 +29,31 @@ public class Suscripcion {
     public Integer getId() {
         return id;
     }
+    public void setId(Integer id) {
+        this.id = id;
+    }
     public String getUsuario() {
         return usuario;
+    }
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
     public Integer getRevista() {
         return revista;
     }
+    public void setRevista(Integer revista) {
+        this.revista = revista;
+    }
     public Date getFechaSuscripcion() {
         return fechaSuscripcion;
     }
+    public void setFechaSuscripcion(Date fechaSuscripcion) {
+        this.fechaSuscripcion = fechaSuscripcion;
+    }
     public Date getFechaCancelacion() {
         return fechaCancelacion;
+    }
+    public void setFechaCancelacion(Date fechaCancelacion) {
+        this.fechaCancelacion = fechaCancelacion;
     }
 }

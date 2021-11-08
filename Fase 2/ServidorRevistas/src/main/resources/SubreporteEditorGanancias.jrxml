@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubreporteEditorGanancias" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8d777d6d-1737-48c3-acb1-162a4c394560">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Objetos Adapter "/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="ganancias" class="java.lang.Float">
+		<fieldDescription><![CDATA[ganancias]]></fieldDescription>
+	</field>
+	<field name="suscripcion" class="objetos.Suscripcion">
+		<fieldDescription><![CDATA[suscripcion]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="180" height="50" forecolor="#666666" uuid="351d4f78-0da6-4332-bb47-6b110fcfe82d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5c1b2609-15fb-4626-a64e-a7e8aaf43444"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Usuario]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="65" width="180" height="30" forecolor="#666666" uuid="f6e5b93e-a106-40ad-b34a-74c6a9ad0434"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{suscripcion}.getUsuario()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="180" y="0" width="200" height="50" forecolor="#666666" uuid="85edf689-6bdd-4343-8a6e-ec707aad8ecd">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5c1b2609-15fb-4626-a64e-a7e8aaf43444"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de Suscripcion]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="180" y="65" width="200" height="30" forecolor="#666666" uuid="df830a2f-4531-4b02-815b-320a68300b4f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.sql.Date($F{suscripcion}.getFechaSuscripcion().getTime()).toLocalDate()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="380" y="0" width="170" height="50" forecolor="#666666" uuid="8649ca76-a637-45c4-a8ee-142a4d01b995">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5c1b2609-15fb-4626-a64e-a7e8aaf43444"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ganancias]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="380" y="65" width="180" height="30" forecolor="#666666" uuid="c084f958-247b-47e5-9149-04b0f999b8a0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Q. "+$F{ganancias}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

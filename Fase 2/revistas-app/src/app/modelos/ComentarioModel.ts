@@ -6,6 +6,7 @@ export class ComentarioModel {
     public revista: number;
     public numeroRevista: number;
     public comentario: string;
+    public fechaPublicacion: Date;
     
     constructor(comentario: Comentario) {
         this.id = comentario.id;
@@ -13,5 +14,6 @@ export class ComentarioModel {
         this.revista = comentario.revista;
         this.numeroRevista = comentario.numeroRevista;
         this.comentario = comentario.comentario;
+        this.fechaPublicacion = comentario.fechaPublicacion;
     }
 }

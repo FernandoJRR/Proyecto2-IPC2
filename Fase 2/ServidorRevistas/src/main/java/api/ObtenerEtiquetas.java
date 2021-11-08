@@ -51,8 +51,6 @@ public class ObtenerEtiquetas extends HttpServlet {
 		
 		String JsonEtiquetas = gson.toJson(listaEtiquetas);
 		
-		System.out.println(JsonEtiquetas);
-		
 		PrintWriter out = response.getWriter();
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
